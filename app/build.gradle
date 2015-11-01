@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "cn.com.elex.social_life"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.facebook.fresco:fresco:0.6.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    compile 'com.android.support:design:23.1.0'
+    compile 'org.apache.httpcomponents:httpcore:4.3.2'
+    //avoscloud-sdk 为 LeanCloud基础包
+    //avoscloud-push 与 Java-WebSocket 为推送与IM需要的包
+    //avoscloud-statistics 为 LeanCloud 统计包
+    //avoscloud-feedback 为 LeanCloud 用户反馈包
+    //avoscloud-sns 为 LeanCloud 第三方登陆包
+    //avoscloud-search 为 LeanCloud 应用内搜索包
+    compile 'com.alibaba:fastjson:1.2.7'
+}
