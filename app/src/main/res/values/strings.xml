@@ -38,4 +38,32 @@
     <string name="dynamicbox_exception_message">An error has occurred, retry again</string>
 
 
+    <string name="loading">正在加载数据</string>
+    <string name="data_loading">数据加载中...</string>
+
+
+    <!--登录界面-->
+    <string name="login">登录</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="phone_no">手机号</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="fast_login">快速登录</string>
+    <string name="register">注册</string>
+
+
+   <!-- 消息界面-->
+
+    <string name="friend_dynamic">好友动态</string>
+    <string name="friend_message">好友消息</string>
+    <string name="friend_request">好友请求</string>
+   <!-- 添加好友-->
+    <string name="search_username">搜索用户名</string>
+
+
+    <string name="send">发送</string>
+
+
+
 </resources>

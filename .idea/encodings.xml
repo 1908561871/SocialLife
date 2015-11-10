@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Emoji" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/btn_chat_send_normal.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/btn_chat_send_selected.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/chat_from_bg_normal.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/chat_from_bg_pressed.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/chat_to_bg_normal.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/chat_to_bg_pressed.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_face_click.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_face_normal.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_keyboard_nor.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_keyboard_pressed.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_more_nor.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_more_pressed.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/speak_left_normal.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/speak_left_selected.9.png" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
