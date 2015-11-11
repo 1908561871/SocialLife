@@ -1,5 +1,6 @@
 package cn.com.elex.social_life.ui.activity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,27 +9,32 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -36,16 +42,25 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.cloud.ClientUserManager;
+import cn.com.elex.social_life.cloud.im.message.MessageSendCotrol;
 import cn.com.elex.social_life.model.bean.ChatMessage;
+import cn.com.elex.social_life.model.bean.ChatMsgSendType;
+import cn.com.elex.social_life.support.callback.CustomAVIMConversationCreatedCallback;
+import cn.com.elex.social_life.support.callback.MsgCallBack;
+import cn.com.elex.social_life.support.event.ChatMsgEvent;
+import cn.com.elex.social_life.support.util.ToastUtils;
 import cn.com.elex.social_life.ui.adapter.ChatRoomMsgAdapter;
 import cn.com.elex.social_life.ui.adapter.EmoticonsGridAdapter;
 import cn.com.elex.social_life.ui.adapter.EmoticonsPagerAdapter;
 import cn.com.elex.social_life.ui.base.BaseActivity;
+import cn.com.elex.social_life.ui.iview.IChatRoomView;
+import de.greenrobot.event.Subscribe;
 
 /**
  * Created by zhangweibo on 2015/11/9.
  */
-public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapter.KeyClickListener {
+public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapter.KeyClickListener ,IChatRoomView{
 
     private static final int NO_OF_EMOTICONS = 54;
     @Bind(R.id.et_content)
@@ -58,10 +73,6 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
     ImageView ivFace;
     @Bind(R.id.iv_keyboard)
     ImageView ivKeyboard;
-    @Bind(R.id.bt_send_msg)
-    Button btSendMsg;
-    /*   @Bind(R.id.footer_for_emoticons)
-       LinearLayout emoticonsCover;*/
     @Bind(R.id.footer_input)
     LinearLayout footerInput;
     @Bind(R.id.bottom_layout)
@@ -79,6 +90,19 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
     private int keyboardHeight;
 
+    /**
+     * 对话
+     */
+    private AVIMConversation conversation;
+
+    private List<String> members;
+
+
+    private ChatMessage  chatMessage;
+
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,16 +114,21 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
     public void init() {
         initData();
+        createConverstation();
         readEmoticons();
         enablePopUpView();
         checkKeyboardHeight(parentLayout);
-        enableFooterView();
     }
 
     public void initData() {
+        members= Arrays.asList(getIntent().getStringArrayExtra("member"));
         messages = new ArrayList<>();
+        chatMessage=new ChatMessage();
         popUpView = getLayoutInflater().inflate(R.layout.emoticons_popup, null);
         chatRoomMsgAdapter = new ChatRoomMsgAdapter(this, messages);
+        recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recycleView.setAdapter(chatRoomMsgAdapter);
+
         refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
@@ -109,22 +138,6 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
         });
     }
 
-    @OnClick(R.id.iv_face)
-    public void click(View v) {
-
-        if (popupWindow.isShowing()) {
-            popupWindow.dismiss();
-        } else {
-            popupWindow.setHeight(keyboardHeight);
-            if (isKeyBoardVisible) {
-                emoticonsCover.setVisibility(LinearLayout.GONE);
-            } else {
-                emoticonsCover.setVisibility(LinearLayout.VISIBLE);
-            }
-            popupWindow.showAtLocation(parentLayout, Gravity.BOTTOM, 0, 0);
-        }
-
-    }
 
 
     /**
@@ -172,7 +185,7 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
             @Override
             public void onDismiss() {
-                 emoticonsCover.setVisibility(LinearLayout.GONE);
+                emoticonsCover.setVisibility(LinearLayout.GONE);
             }
         });
     }
@@ -283,38 +296,108 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
     }
 
-    /**
-     * Enabling all content in footer i.e. post window
-     */
-    private void enableFooterView() {
 
-        content.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
 
-                if (popupWindow.isShowing()) {
-
-                    popupWindow.dismiss();
-                }
-
-            }
-        });
-
-        btSendMsg.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if (content.getText().toString().length() > 0) {
-                    /*Spanned sp = content.getText();
-                    chats.add(sp);
-                    content.setText("");
-                    mAdapter.notifyDataSetChanged();*/
-                }
-            }
-        });
+    @OnClick(R.id.et_content)
+    public void clickContent() {
+        if (popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        }
     }
+
+    /**
+     * 回复信息
+     */
+    @OnClick(R.id.bt_send_msg)
+    public void replyContent() {
+        Spanned sp = content.getText();
+        ToastUtils.show(this, sp.toString());
+        chatMessage.setContent(sp.toString());
+        chatMessage.setNickName("zhangweibo");
+        chatMessage.setSendType(ChatMsgSendType.OPPOSITE);
+        if (conversation==null){
+            createConverstation();
+        }else{
+
+            MessageSendCotrol.sendTextMsg(conversation, new MsgCallBack() {
+                @Override
+                public void success() {
+                    content.setText("");
+                    ToastUtils.show(ChatRoomActivity.this,"信息发送成功");
+                }
+                @Override
+                public void failure(String msg) {
+
+                }
+            },chatMessage);
+        }
+        refreshChatMsg(chatMessage);
+    }
+
+    @OnClick(R.id.iv_face)
+    public void clickFaceAction() {
+        if (popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        } else {
+            popupWindow.setHeight(keyboardHeight);
+            if (isKeyBoardVisible) {
+                emoticonsCover.setVisibility(LinearLayout.GONE);
+            } else {
+                emoticonsCover.setVisibility(LinearLayout.VISIBLE);
+            }
+            popupWindow.showAtLocation(parentLayout, Gravity.BOTTOM, 0, 0);
+        }
+
+    }
+
+    @Override
+    public String getReplayContent() {
+        return null;
+    }
+
+    @Override
+    public void refreshChatMsg(ChatMessage msg) {
+        messages.add(msg);
+        chatRoomMsgAdapter.notifyDataSetChanged();
+        recycleView.smoothScrollToPosition(chatRoomMsgAdapter.getItemCount() - 1);
+    }
+
+
+    /**
+     * 接收消息
+     * @param event
+     */
+    @Subscribe
+    public void onReceiverMessage(ChatMsgEvent event){
+
+        ChatMessage msg=event.getMsg();
+//        if (conversationID.equals(msg.getConversationID()))
+//        {
+        refreshChatMsg(msg);
+//        }
+
+
+    }
+
+
+
+    public void createConverstation(){
+       ClientUserManager.getInstance().obtainCurrentClentUser().createConversation(members, null, new CustomAVIMConversationCreatedCallback() {
+            @Override
+            protected void success(AVIMConversation avimConversation) {
+                ToastUtils.show(ChatRoomActivity.this,"对话创建成功");
+                conversation=avimConversation;
+            }
+
+           @Override
+           protected void failure(String error) {
+               ToastUtils.show(ChatRoomActivity.this,"对话创建失败");
+           }
+       });
+
+    }
+
 
 
 

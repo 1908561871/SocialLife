@@ -1,9 +1,14 @@
 package cn.com.elex.social_life.model.bean;
 
+import android.text.Spanned;
+
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by zhangweibo on 2015/11/10.
  */
-public class ChatMessage {
+public class ChatMessage  implements Serializable{
 
     /**
      * 信息类型
@@ -30,6 +35,13 @@ public class ChatMessage {
      */
     private String userIcon;
 
+    private List<String> members;
+
+
+    /**
+     * 回话ID
+     */
+    private String conversationID;
 
     public ChatMsgType getChatMsgType() {
         return chatMsgType;
@@ -69,5 +81,21 @@ public class ChatMessage {
 
     public void setUserIcon(String userIcon) {
         this.userIcon = userIcon;
+    }
+
+    public List<String> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<String> members) {
+        this.members = members;
+    }
+
+    public String getConversationID() {
+        return conversationID;
+    }
+
+    public void setConversationID(String conversationID) {
+        this.conversationID = conversationID;
     }
 }

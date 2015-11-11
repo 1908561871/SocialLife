@@ -10,12 +10,8 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 public abstract class CustomAVIMConversationCreatedCallback extends AVIMConversationCreatedCallback {
 
 
-    private MsgCallBack msgCallBack ;
 
 
-    public CustomAVIMConversationCreatedCallback(MsgCallBack msgCallBack) {
-        this.msgCallBack = msgCallBack;
-    }
 
     public void done(AVIMConversation avimConversation, AVIMException e) {
 
@@ -24,13 +20,14 @@ public abstract class CustomAVIMConversationCreatedCallback extends AVIMConversa
             success(avimConversation);
 
         }else{
-            msgCallBack.failure(e.getMessage());
+            failure(e.getMessage());
         }
 
     }
 
     protected   abstract  void  success(AVIMConversation avimConversation);
 
+    protected   abstract  void  failure(String error);
 
 
 }

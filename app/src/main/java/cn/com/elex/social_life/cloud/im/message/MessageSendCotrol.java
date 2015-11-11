@@ -1,12 +1,14 @@
 package cn.com.elex.social_life.cloud.im.message;
 
+import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 
 import java.util.List;
 
-import cn.com.elex.social_life.cloud.im.ClientUserManager;
-import cn.com.elex.social_life.support.callback.CustomAVIMClientCallback;
+import cn.com.elex.social_life.cloud.ClientUserManager;
+import cn.com.elex.social_life.model.bean.ChatMessage;
 import cn.com.elex.social_life.support.callback.CustomAVIMConversationCreatedCallback;
 import cn.com.elex.social_life.support.callback.CustomConversitonCallBack;
 import cn.com.elex.social_life.support.callback.MsgCallBack;
@@ -19,28 +21,12 @@ public class MessageSendCotrol {
 
     /**
      * 发送文本消息
-     * @param reveiver
-     * @param callBack
      */
 
-    public static void sendTextMsg(final List<String> reveiver, final String title,final MsgCallBack callBack){
-
-        ClientUserManager.obtainCurrentClentUser().open(new CustomAVIMClientCallback(callBack) {
-            @Override
-            protected void success() {
-                ClientUserManager.obtainCurrentClentUser().createConversation(reveiver, title != null ? title : StringUtils.tailorNameWithAnd(reveiver), null, new CustomAVIMConversationCreatedCallback(callBack) {
-                    @Override
-                    protected void success(AVIMConversation avimConversation) {
-                        AVIMTextMessage msg = new AVIMTextMessage();
-                        msg.setText("耗子，起床！");
-                        // 发送消息
-                        avimConversation.sendMessage(msg, new CustomConversitonCallBack(callBack));
-                    }
-                });
-
-            }
-        });
-
+    public static void sendTextMsg(AVIMConversation avimConversation,MsgCallBack callBack,ChatMessage chatMessage){
+        AVIMMessage msg=new AVIMMessage();
+        msg.setContent(JSON.toJSONString(chatMessage));
+        avimConversation.sendMessage(msg, new CustomConversitonCallBack(callBack));
     }
 
 

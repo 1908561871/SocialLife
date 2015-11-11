@@ -1,5 +1,6 @@
 package cn.com.elex.social_life.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,17 +56,9 @@ public class AddFriendActivity extends BaseActivity  implements IAddFriendView{
         adapter.setmOnItemClickLitener(new SearchFriendsListAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                DataStorage.addFriends(infos.get(position), new DataSaveCallBack() {
-                    @Override
-                    public void success() {
-                        ToastUtils.show(AddFriendActivity.this, "添加成功");
-                    }
-
-                    @Override
-                    public void failure(String msg) {
-                        ToastUtils.show(AddFriendActivity.this, "添加失败");
-                    }
-                });
+                Intent intent =new Intent(AddFriendActivity.this,ChatRoomActivity.class);
+                intent.putExtra("member",new String[]{infos.get(position).getUsername()});
+                startActivity(intent);
             }
         });
     }

@@ -28,12 +28,12 @@ import dmax.dialog.SpotsDialog;
  */
 public class BaseActivity extends FragmentActivity{
 
-	public static CrashApplication app;
+	public  CrashApplication app;
 	public int networkType;
 	public String networkName;
-	public static boolean isNetAvailabe;
 	private boolean isShowNet;
 	private SpotsDialog dialog;
+
     protected Handler mHandler = new SafeHandler(this);
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -98,10 +98,10 @@ public class ChatRoomMsgAdapter extends RecyclerView.Adapter<ChatRoomMsgAdapter.
         holder.rlSpeakLeft.setVisibility(View.VISIBLE);
         holder.rlSpeakRight.setVisibility(View.GONE);
         //设置用户icon
-        holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
+     //   holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
         //设置用户昵称
         holder.tvLeftNickname.setText(msg.getNickName());
-
+        holder.tvLeftContent.setText(msg.getContent());
 
     }
 
@@ -115,9 +115,9 @@ public class ChatRoomMsgAdapter extends RecyclerView.Adapter<ChatRoomMsgAdapter.
 
         holder.rlSpeakLeft.setVisibility(View.GONE);
         holder.rlSpeakRight.setVisibility(View.VISIBLE);
-        holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
-        holder.tvLeftNickname.setText(msg.getNickName());
-
+    //    holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
+        holder.tvOtherNickname.setText(msg.getNickName());
+        holder.tvRightContent.setText(msg.getContent());
 
 
     }

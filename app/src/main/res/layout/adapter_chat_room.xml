@@ -34,7 +34,7 @@
          android:id="@+id/tv_left_content"
          android:gravity="start"
          android:layout_marginRight="50dp"
-         android:background="@drawable/chat_to_bg"
+         android:background="@drawable/chat_from_bg"
          android:textColor="@color/primary_text" />
  </RelativeLayout>
     <RelativeLayout
@@ -62,7 +62,7 @@
             android:id="@+id/tv_right_content"
             android:gravity="start"
             android:layout_marginLeft="50dp"
-            android:background="@drawable/chat_from_bg"
+            android:background="@drawable/chat_to_bg"
             android:textColor="@color/primary_text" />
     </RelativeLayout>
 </LinearLayout>

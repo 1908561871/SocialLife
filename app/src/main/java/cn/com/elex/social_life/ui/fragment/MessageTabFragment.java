@@ -65,7 +65,7 @@ import cn.com.elex.social_life.ui.base.BaseFragment;
         adapter.setmOnItemClickLitener(new MessageAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-               goToPagerByIntent(ChatRoomActivity.class);
+               goToPagerByIntent(AddFriendActivity.class);
             }
         });
     }
