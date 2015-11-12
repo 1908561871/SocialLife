@@ -49,6 +49,7 @@ import cn.com.elex.social_life.model.bean.ChatMsgSendType;
 import cn.com.elex.social_life.support.callback.CustomAVIMConversationCreatedCallback;
 import cn.com.elex.social_life.support.callback.MsgCallBack;
 import cn.com.elex.social_life.support.event.ChatMsgEvent;
+import cn.com.elex.social_life.support.util.EmojiUtil;
 import cn.com.elex.social_life.support.util.ToastUtils;
 import cn.com.elex.social_life.ui.adapter.ChatRoomMsgAdapter;
 import cn.com.elex.social_life.ui.adapter.EmoticonsGridAdapter;
@@ -220,6 +221,7 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
         Spanned cs = Html.fromHtml("<img src ='" + index + "'/>", imageGetter, null);
         int cursorPosition = content.getSelectionStart();
         content.getText().insert(cursorPosition, cs);
+        ToastUtils.show(this, EmojiUtil.FilterHtml(Html.toHtml(content.getText())));
     }
 
 
@@ -311,15 +313,14 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
      */
     @OnClick(R.id.bt_send_msg)
     public void replyContent() {
-        Spanned sp = content.getText();
-        ToastUtils.show(this, sp.toString());
-        chatMessage.setContent(sp.toString());
+        String sp = EmojiUtil.FilterHtml(Html.toHtml(content.getText()));
+        ToastUtils.show(this, sp);
+        chatMessage.setContent(sp);
         chatMessage.setNickName("zhangweibo");
         chatMessage.setSendType(ChatMsgSendType.OPPOSITE);
         if (conversation==null){
             createConverstation();
         }else{
-
             MessageSendCotrol.sendTextMsg(conversation, new MsgCallBack() {
                 @Override
                 public void success() {
