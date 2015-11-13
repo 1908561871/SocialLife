@@ -1,8 +1,12 @@
 package cn.com.elex.social_life.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +15,15 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.ChatMessage;
+import cn.com.elex.social_life.support.util.BitmapUtil;
 
 /**
  * Created by zhangweibo on 2015/11/10.
@@ -26,7 +33,14 @@ public class ChatRoomMsgAdapter extends RecyclerView.Adapter<ChatRoomMsgAdapter.
     private Context context;
 
     private List<ChatMessage> messages;
-
+    Html.ImageGetter imageGetter = new Html.ImageGetter() {
+        public Drawable getDrawable(String source) {
+            Drawable d;
+            d = new BitmapDrawable(context.getResources(), BitmapUtil.getBitmapEmojiFromAssert(source));
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            return d;
+        }
+    };
 
     public ChatRoomMsgAdapter(Context context, List<ChatMessage> messages) {
         this.context = context;
@@ -101,8 +115,12 @@ public class ChatRoomMsgAdapter extends RecyclerView.Adapter<ChatRoomMsgAdapter.
      //   holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
         //设置用户昵称
         holder.tvLeftNickname.setText(msg.getNickName());
-        holder.tvLeftContent.setText(msg.getContent());
-
+        Spanned content=Html.fromHtml(msg.getContent(), imageGetter, null);
+        if (content.length()>2)
+        {
+            content= (Spanned) content.subSequence(0,content.length()-2);
+        }
+        holder.tvLeftContent.setText(content);
     }
 
     /**
@@ -117,9 +135,12 @@ public class ChatRoomMsgAdapter extends RecyclerView.Adapter<ChatRoomMsgAdapter.
         holder.rlSpeakRight.setVisibility(View.VISIBLE);
     //    holder.iconLeftUser.setImageURI(Uri.parse(msg.getUserIcon()));
         holder.tvOtherNickname.setText(msg.getNickName());
-        holder.tvRightContent.setText(msg.getContent());
-
-
+        Spanned content=Html.fromHtml(msg.getContent(), imageGetter, null);
+        if (content.length()>2)
+        {
+            content= (Spanned) content.subSequence(0,content.length()-2);
+        }
+        holder.tvRightContent.setText(content);
     }
 
 

@@ -12,6 +12,8 @@ import cn.com.elex.social_life.ui.base.BaseFragment;
 public class MineTabFragment extends BaseFragment {
 
 
+
+
     @Override
     protected int getResourceLyoutID() {
         return 0;

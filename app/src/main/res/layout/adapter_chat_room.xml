@@ -38,7 +38,7 @@
          android:textColor="@color/primary_text" />
  </RelativeLayout>
     <RelativeLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/rl_speak_right"
         style="@style/base_style_mw">
         <com.facebook.drawee.view.SimpleDraweeView

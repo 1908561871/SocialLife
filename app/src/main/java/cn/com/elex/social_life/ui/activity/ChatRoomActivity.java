@@ -1,6 +1,5 @@
 package cn.com.elex.social_life.ui.activity;
 
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,18 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,7 +45,7 @@ import cn.com.elex.social_life.model.bean.ChatMsgSendType;
 import cn.com.elex.social_life.support.callback.CustomAVIMConversationCreatedCallback;
 import cn.com.elex.social_life.support.callback.MsgCallBack;
 import cn.com.elex.social_life.support.event.ChatMsgEvent;
-import cn.com.elex.social_life.support.util.EmojiUtil;
+import cn.com.elex.social_life.support.util.BitmapUtil;
 import cn.com.elex.social_life.support.util.ToastUtils;
 import cn.com.elex.social_life.ui.adapter.ChatRoomMsgAdapter;
 import cn.com.elex.social_life.ui.adapter.EmoticonsGridAdapter;
@@ -61,7 +57,7 @@ import de.greenrobot.event.Subscribe;
 /**
  * Created by zhangweibo on 2015/11/9.
  */
-public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapter.KeyClickListener ,IChatRoomView{
+public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapter.KeyClickListener, IChatRoomView {
 
     private static final int NO_OF_EMOTICONS = 54;
     @Bind(R.id.et_content)
@@ -82,7 +78,6 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
     RelativeLayout parentLayout;
     private ChatRoomMsgAdapter chatRoomMsgAdapter;
     private List<ChatMessage> messages;
-    private Bitmap[] emoticons;
     private PopupWindow popupWindow;
     //表情
     private View popUpView;
@@ -99,10 +94,16 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
     private List<String> members;
 
 
-    private ChatMessage  chatMessage;
+    private ChatMessage chatMessage;
 
-
-
+    Html.ImageGetter imageGetter = new Html.ImageGetter() {
+        public Drawable getDrawable(String source) {
+            Drawable d;
+            d = new BitmapDrawable(getResources(), BitmapUtil.getBitmapEmojiFromAssert(source));
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            return d;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,15 +117,16 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
     public void init() {
         initData();
         createConverstation();
-        readEmoticons();
         enablePopUpView();
         checkKeyboardHeight(parentLayout);
     }
 
     public void initData() {
-        members= Arrays.asList(getIntent().getStringArrayExtra("member"));
+        members = Arrays.asList(getIntent().getStringArrayExtra("member"));
         messages = new ArrayList<>();
-        chatMessage=new ChatMessage();
+        chatMessage = new ChatMessage();
+        chatMessage.setNickName(ClientUserManager.getInstance().obtainCurrentUser().getUsername());
+        chatMessage.setSendType(ChatMsgSendType.OWN);
         popUpView = getLayoutInflater().inflate(R.layout.emoticons_popup, null);
         chatRoomMsgAdapter = new ChatRoomMsgAdapter(this, messages);
         recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -139,19 +141,6 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
         });
     }
 
-
-
-    /**
-     * Reading all emoticons in local cache
-     */
-    private void readEmoticons() {
-
-        emoticons = new Bitmap[NO_OF_EMOTICONS];
-        for (short i = 0; i < NO_OF_EMOTICONS; i++) {
-            emoticons[i] = getImage((i + 1) + ".png");
-        }
-
-    }
 
     /**
      * Defining all components of emoticons keyboard
@@ -191,37 +180,14 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
         });
     }
 
-    /**
-     * For loading smileys from assets
-     */
-    private Bitmap getImage(String path) {
-        AssetManager mngr = getAssets();
-        InputStream in = null;
-        try {
-            in = mngr.open("emoticons/" + path);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        Bitmap temp = BitmapFactory.decodeStream(in, null, null);
-        return temp;
-    }
 
     @Override
     public void keyClickedIndex(final String index) {
 
-        Html.ImageGetter imageGetter = new Html.ImageGetter() {
-            public Drawable getDrawable(String source) {
-                StringTokenizer st = new StringTokenizer(index, ".");
-                Drawable d = new BitmapDrawable(getResources(), emoticons[Integer.parseInt(st.nextToken()) - 1]);
-                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-                return d;
-            }
-        };
         Spanned cs = Html.fromHtml("<img src ='" + index + "'/>", imageGetter, null);
         int cursorPosition = content.getSelectionStart();
         content.getText().insert(cursorPosition, cs);
-        ToastUtils.show(this, EmojiUtil.FilterHtml(Html.toHtml(content.getText())));
     }
 
 
@@ -293,12 +259,10 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
             keyboardHeight = height;
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, keyboardHeight);
-             emoticonsCover.setLayoutParams(params);
+            emoticonsCover.setLayoutParams(params);
         }
 
     }
-
-
 
 
     @OnClick(R.id.et_content)
@@ -313,28 +277,27 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
      */
     @OnClick(R.id.bt_send_msg)
     public void replyContent() {
-        String sp = EmojiUtil.FilterHtml(Html.toHtml(content.getText()));
-        ToastUtils.show(this, sp);
+        String sp = Html.toHtml(content.getText());
         chatMessage.setContent(sp);
-        chatMessage.setNickName("zhangweibo");
-        chatMessage.setSendType(ChatMsgSendType.OPPOSITE);
-        if (conversation==null){
+        refreshChatMsg(chatMessage);
+        if (conversation == null) {
             createConverstation();
-        }else{
+        } else {
             MessageSendCotrol.sendTextMsg(conversation, new MsgCallBack() {
                 @Override
                 public void success() {
                     content.setText("");
-                    ToastUtils.show(ChatRoomActivity.this,"信息发送成功");
+                    ToastUtils.show(ChatRoomActivity.this, "信息发送成功");
                 }
+
                 @Override
                 public void failure(String msg) {
 
                 }
-            },chatMessage);
+            }, chatMessage);
         }
-        refreshChatMsg(chatMessage);
     }
+
 
     @OnClick(R.id.iv_face)
     public void clickFaceAction() {
@@ -367,38 +330,34 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
     /**
      * 接收消息
+     *
      * @param event
      */
     @Subscribe
-    public void onReceiverMessage(ChatMsgEvent event){
+    public void onReceiverMessage(ChatMsgEvent event) {
 
-        ChatMessage msg=event.getMsg();
-//        if (conversationID.equals(msg.getConversationID()))
-//        {
+        ChatMessage msg = event.getMsg();
+        msg.setSendType(ChatMsgSendType.OPPOSITE);
         refreshChatMsg(msg);
-//        }
 
 
     }
 
 
-
-    public void createConverstation(){
-       ClientUserManager.getInstance().obtainCurrentClentUser().createConversation(members, null, new CustomAVIMConversationCreatedCallback() {
+    public void createConverstation() {
+        ClientUserManager.getInstance().obtainCurrentClentUser().createConversation(members, "conversation", null,true,new CustomAVIMConversationCreatedCallback() {
             @Override
             protected void success(AVIMConversation avimConversation) {
-                ToastUtils.show(ChatRoomActivity.this,"对话创建成功");
-                conversation=avimConversation;
+                ToastUtils.show(ChatRoomActivity.this, "对话创建成功");
+                conversation = avimConversation;
             }
-
-           @Override
-           protected void failure(String error) {
-               ToastUtils.show(ChatRoomActivity.this,"对话创建失败");
-           }
-       });
+            @Override
+            protected void failure(String error) {
+                ToastUtils.show(ChatRoomActivity.this, "对话创建失败");
+            }
+        });
 
     }
-
 
 
 

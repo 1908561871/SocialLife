@@ -22,7 +22,7 @@ import java.util.List;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.support.config.Constant;
-import cn.com.elex.social_life.sys.receiver.im.CustomMessageHandler;
+import cn.com.elex.social_life.sys.receiver.im.IMMessageReceiver;
 
 
 /**
@@ -116,9 +116,10 @@ public class CrashApplication extends Application {
 	 */
     public void resignReceiver(){
 
-		AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
+		AVIMMessageManager.registerDefaultMessageHandler(new IMMessageReceiver());
 
 	}
+
 
 
 

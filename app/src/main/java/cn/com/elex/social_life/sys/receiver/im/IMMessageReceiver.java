@@ -14,13 +14,15 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by zhangweibo on 2015/11/5.
  */
-public  class CustomMessageHandler extends AVIMMessageHandler {
+public  class IMMessageReceiver extends AVIMMessageHandler {
     /**
      * 处理接收消息
      * @param message
      * @param conversation
      * @param client
      */
+
+
     @Override
     public void onMessage(AVIMMessage message,AVIMConversation conversation,AVIMClient client){
 
@@ -40,4 +42,9 @@ public  class CustomMessageHandler extends AVIMMessageHandler {
 
 
     }
+
+
+
+
+
 }
