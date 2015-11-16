@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
-    android:background="@color/pink"
+    android:background="@drawable/bg_public_title_orange"
     android:gravity="center"
+
     android:layout_height="50dp">
 
     <ImageView
@@ -33,5 +34,5 @@
         android:textSize="@dimen/big_text_size"
         android:layout_toLeftOf="@id/tv_right"
         android:layout_toRightOf="@id/tv_left"
-        android:text="@string/login"/>
+        android:text="@string/app_name"/>
 </RelativeLayout>

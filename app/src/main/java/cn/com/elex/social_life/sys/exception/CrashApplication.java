@@ -107,7 +107,7 @@ public class CrashApplication extends Application {
 		new LoadingConfiguration()
 				.setLoadingText(R.string.loading)
 						// or
-				.setLoading(false).setTextColor(getResources().getColor(R.color.pink)) // you'll manually call setLoading(true) to LoadingView in order to show loading indicator.
+				.setLoading(false).setTextColor(getResources().getColor(R.color.orangle)) // you'll manually call setLoading(true) to LoadingView in order to show loading indicator.
 				.setDefault(); // make this configuration default
 	}
 

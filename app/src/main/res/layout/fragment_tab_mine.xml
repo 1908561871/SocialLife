@@ -1,7 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include
+        layout="@layout/fragment_header_title"
+        ></include>
+
+<RelativeLayout
+    android:layout_marginTop="@dimen/verticl_margin"
+    style="@style/base_style_mw"
+    android:layout_height="80dp"
+    android:background="@color/white"
+    android:padding="@dimen/layout_padding"
+    >
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/user_icon"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        fresco:placeholderImage="@drawable/default_head"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        />
+
+    <ImageView
+        android:id="@+id/arrow_icon"
+        style="@style/mine_tab_arrow_style"
+        />
+    <TextView
+        android:id="@+id/nickername"
+        style="@style/base_style_ww"
+        android:text="昵称"
+        android:layout_toRightOf="@id/user_icon"
+        />
+
+    <TextView
+        android:id="@+id/sign_message"
+        style="@style/base_style_ww"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="签名信息"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/arrow_icon"
+        android:layout_toRightOf="@id/user_icon"
+        />
+
+</RelativeLayout>
+
+<RelativeLayout
+    android:background="@android:color/transparent"
+    android:layout_marginTop="@dimen/layout_margin"
+    style="@style/base_style_mw"
+
+    android:layout_height="@dimen/layout_height">
+    <View
+        style="@style/divider_style"></View>
+
+    <ImageView
+        android:id="@+id/icon_share"
+        style="@style/mine_tab_icon_style"
+        android:src="@drawable/icon_account_share"/>
+    <ImageView
+        android:id="@+id/arrow_icon_share"
+        style="@style/mine_tab_arrow_style"
+        />
+
+    <TextView
+        android:id="@+id/tv_share"
+        style="@style/mine_tab_word_style"
+        android:layout_toRightOf="@id/icon_share"
+        android:text="@string/share"
+        />
+    <View
+        android:layout_width=""
+        android:layout_height=""></View>
+</RelativeLayout>
 
 
 

@@ -24,9 +24,9 @@
     <color name="primary_dark">#1976D2</color>
     <color name="primary_light">#BBDEFB</color>
     <color name="gray">#9b9b9b</color>
-    <color name="light_gray">#f3f3f3</color>
+    <color name="light_gray">#f7f7f7</color>
 
-    <color name="pink">#FF7A6E</color>
+    <color name="orangle">#F7AA85</color>
     <color name="red_bg1">#FF3434</color>
     <color name="red_bg2">#DA1919</color>
 
