@@ -5,9 +5,8 @@
         <!-- Customize your theme here. -->
         //整个当前Activity的字体的默认颜色。
         <item name="android:textColorPrimary">@color/secondary_text</item>
-        <item name="android:windowBackground">@color/light_gray</item>
+        <item name="android:windowBackground">@color/light_gray_window</item>
     </style>
-
   <!--  小字体-->
     <style name="sml_text_style_ww">
     <item name="android:layout_width">wrap_content</item>
@@ -87,7 +86,11 @@
         <item name="android:layout_height">0.1dp</item>
         <item name="android:background">@color/divider</item>
     </style>
-
+    <style name="divider_style1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.1dp</item>
+        <item name="android:background">@color/divider1</item>
+    </style>
     <style name="layout_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/layout_item_height</item>

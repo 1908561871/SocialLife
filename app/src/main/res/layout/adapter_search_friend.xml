@@ -8,10 +8,10 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/icon_user"
         android:layout_centerVertical="true"
-        android:layout_width="@dimen/icon_size"
+        android:layout_width="@dimen/normal_icon_size"
         fresco:placeholderImage="@drawable/assistant_icon"
         
-        android:layout_height="@dimen/icon_size"/>
+        android:layout_height="@dimen/normal_icon_size"/>
      <TextView
          android:id="@+id/tv_userName"
          style="@style/commen_text_style_ww"

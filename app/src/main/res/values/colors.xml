@@ -24,7 +24,10 @@
     <color name="primary_dark">#1976D2</color>
     <color name="primary_light">#BBDEFB</color>
     <color name="gray">#9b9b9b</color>
-    <color name="light_gray">#f7f7f7</color>
+    <color name="light_gray">#f8f8f8</color>
+    <color name="light_gray_window">#f4f5ef</color>
+    <color name="light_gray_text">#bfbfbf</color>
+
 
     <color name="orangle">#F7AA85</color>
     <color name="red_bg1">#FF3434</color>
@@ -35,7 +38,8 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#9b9b9b</color>
     <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
+    <color name="divider">#f9f9f9</color>
+    <color name="divider1">#e5e5e3</color>
     <color name="yellow">#f4c600</color>
 
     <!--加载框的颜色-->
