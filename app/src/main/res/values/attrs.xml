@@ -46,4 +46,12 @@
         <attr name="border_color" format="color" />
         <attr name="border_overlay" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="EditTextWithDeleteButton">
+        <attr name="hintText" format="string" />
+        <attr name="rightLabel" format="string" />
+        <attr name="isShowDeleteBt" format="boolean" />
+        <attr name="deleteButtonRes" format="reference" />
+        <attr name="rightLabelStyle" format="reference" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
 </resources>

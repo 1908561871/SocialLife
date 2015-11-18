@@ -4,6 +4,7 @@
 package cn.com.elex.social_life.ui.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -210,10 +211,20 @@ public void setHeader(boolean isBack ,String titleName,String ActionName,View.On
 		dialog.show();
 	}
 
-
 	public void hideLoadingDialog(){
 		if(dialog!=null){
 			dialog.hide();
 		}
 	}
+
+	/**
+	 *跳转页面
+	 * @param cls
+	 */
+	public void goToPagerByIntent(Class cls){
+		Intent intent =new Intent(this,cls);
+		startActivity(intent);
+
+	}
+
 }

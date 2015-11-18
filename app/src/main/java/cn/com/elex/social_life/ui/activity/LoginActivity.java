@@ -25,8 +25,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     EditText et_username;
     @Bind(R.id.et_userpwd)
     EditText et_userpwd;
-    @Bind(R.id.btn_login)
-    Button btn_login;
     @Bind(R.id.loadingview)
     LoadingView loadingview;
     @Bind(R.id.tv_forgetpwd)

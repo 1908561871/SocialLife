@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Emoji/Emoji.iml" filepath="$PROJECT_DIR$/Emoji/Emoji.iml" />
       <module fileurl="file://$PROJECT_DIR$/SocialLife.iml" filepath="$PROJECT_DIR$/SocialLife.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/infiniteviewpager/infiniteviewpager.iml" filepath="$PROJECT_DIR$/infiniteviewpager/infiniteviewpager.iml" />
     </modules>
   </component>
 </project>

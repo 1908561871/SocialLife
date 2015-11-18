@@ -35,8 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void goToMainTabActivity(){
-
-        Intent intent=new Intent(this,LoginActivity.class);
+        Intent intent=new Intent(this,GuideActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

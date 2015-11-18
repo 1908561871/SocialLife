@@ -12,6 +12,11 @@ import java.util.List;
 public class UserInfo extends AVUser{
 
     /**
+     * 账号类型（QQ,wexin,sina,phone）
+     */
+    private String accountType;
+
+    /**
      * 好友
      */
     private AVRelation<UserInfo> friends;
@@ -24,4 +29,11 @@ public class UserInfo extends AVUser{
         return this.getString("nickName");
     }
 
+    public String getAccountType() {
+        return this.getString("accountType");
+    }
+
+    public void setAccountType(String accountType) {
+        this.put("accountType", accountType);
+    }
 }

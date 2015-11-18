@@ -20,40 +20,25 @@ public class RegisterPresenter {
 
     public RegisterPresenter(IRegisterView iRegisterView) {
         this.iRegisterView = iRegisterView;
-        iRegisterModel=new RegisterModel();
+        iRegisterModel = new RegisterModel();
     }
 
 
+    public void signUp(String phoneNum, String pwd, String code) {
 
-    public void signUp(String userName,String pwd,String confirmPwd){
-
-        if (iRegisterModel.vertifyInfo(userName,pwd,confirmPwd)){
-            iRegisterView.showLoadingView();
-
-            iRegisterModel.signUp(userName, pwd, new SignUpCallback() {
-                @Override
-                public void done(AVException e) {
-                    iRegisterView.hideLoadingView();
-                    if (null==e){
-                        ToastUtils.show(CrashApplication.getInstance(),"注册成功");
-                    }else{
-                        ToastUtils.show(CrashApplication.getInstance(),"注册失败");
-                    }
+        iRegisterView.showLoadingView();
+        iRegisterModel.signUp(phoneNum, pwd, new SignUpCallback() {
+            @Override
+            public void done(AVException e) {
+                iRegisterView.hideLoadingView();
+                if (null == e) {
+                    ToastUtils.show(CrashApplication.getInstance(), "注册成功");
+                } else {
+                    ToastUtils.show(CrashApplication.getInstance(), "注册失败");
                 }
-            });
-        }else{
-            ToastUtils.show(CrashApplication.getInstance(),"请输入正确的信息");
-        }
-
+            }
+        });
     }
-
-
-
-
-
-
-
-
 
 
 }
