@@ -1,7 +1,6 @@
 package cn.com.elex.social_life.ui.activity;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.buraktamturk.loadingview.LoadingView;
@@ -23,14 +22,14 @@ import cn.com.elex.social_life.ui.iview.IRegisterView;
 public class RegisterActivity extends BaseActivity implements IRegisterView {
 
 
-    @Bind(R.id.et_phone)
-    EditTextWithDeleteButton phoneNum;
+    @Bind(R.id.et_username)
+    EditTextWithDeleteButton userName;
     @Bind(R.id.et_pwd)
     EditTextWithDeleteButton userPwd;
-    @Bind(R.id.et_code)
-    EditTextWithDeleteButton code;
-    @Bind(R.id.tv_obtain_code)
-    TextView obtainCode;
+    @Bind(R.id.et_confirm_pwd)
+    EditTextWithDeleteButton confirmPwd;
+    @Bind(R.id.btn_complete)
+    TextView complete;
     private RegisterPresenter presenter;
     @Bind(R.id.loadingview)
     LoadingView loadingView;
@@ -42,13 +41,12 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         ButterKnife.bind(this);
         presenter = new RegisterPresenter(this);
         setHeader(true, getResources().getString(R.string.register));
-        resetCodeHeight();
     }
 
 
     @Override
-    public String getPhoneNum() {
-        return phoneNum.getText();
+    public String getUserName() {
+        return userName.getText();
     }
 
     @Override
@@ -57,36 +55,26 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     }
 
     @Override
-    public String getCode() {
-        return code.getText();
+    public String getConfirmPwd() {
+        return confirmPwd.getText();
     }
 
     @Override
     public void showLoadingView() {
         loadingView.setLoading(true);
+        complete.setClickable(false);
     }
 
     @Override
     public void hideLoadingView() {
         loadingView.setLoading(false);
+        complete.setClickable(true);
     }
 
+    @OnClick(R.id.btn_complete)
     public void signUp() {
-        presenter.signUp(getPhoneNum(), getPwd(), getCode());
-
+        presenter.signUp(getUserName(), getPwd(), getConfirmPwd());
     }
 
-    public void resetCodeHeight(){
-        obtainCode.measure(0, 0);
-        ViewGroup.MarginLayoutParams params= (ViewGroup.MarginLayoutParams) obtainCode.getLayoutParams();
-        params.width=obtainCode.getMeasuredWidth();
-        obtainCode.setLayoutParams(params);
-    }
-
-
-    @OnClick(R.id.tv_obtain_code)
-    public void obtainCode(){
-
-    }
 
 }

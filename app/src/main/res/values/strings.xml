@@ -45,8 +45,6 @@
     <!--登录界面-->
     <string name="login">登录</string>
     <string name="username">用户名</string>
-    <string name="password">密码</string>
-    <string name="confirm_password">确认密码</string>
     <string name="phone_no">手机号</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="fast_login">快速登录</string>
@@ -77,10 +75,28 @@
 
     <string name="next_step">下一步</string>
     <string name="please_input_phone">请输入手机号码</string>
-    <string name="please_input_username">请输入用户名</string>
+    <string name="please_input_username">用户名(6-12位字符,首字符必须以字母开头)</string>
+    <string name="please_input_pwd">密码(6-12位字符)</string>
     <string name="please_input_code">请输入验证码</string>
     <string name="obtain_code">获取验证码</string>
+    <string name="confirm_password">确认密码</string>
+
+    <string name="complete">完成</string>
+    <string name="email">邮箱:</string>
+    <string name="password">密码:</string>
 
 
+
+
+    <string name="register_name_digits">._0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="email_sample">sample@mail.com</string>
+    <string name="passwrod_sample">不少于4位的数字或字母</string>
+
+
+    <!--    toast信息-->
+    <string name="register_success">注册成功</string>
+    <string name="register_failure">注册失败</string>
+    <string name="password_format_error">密码输入不正确或者格式有误</string>
+    <string name="username_format_error">用户名格式不正确</string>
 
 </resources>

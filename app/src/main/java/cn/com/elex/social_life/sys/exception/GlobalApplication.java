@@ -31,11 +31,11 @@ import cn.com.elex.social_life.sys.receiver.im.IMMessageReceiver;
  * @desperation:全局Application
  * 
  */
-public class CrashApplication extends Application {
-	private static  String TAG="CrashApplication";
+public class GlobalApplication extends Application {
+	private static  String TAG="GlobalApplication";
 	public List<Activity> activityManager;
 	public HashMap<String, Object> session;
-	private static CrashApplication instance;
+	private static GlobalApplication instance;
 	public String deviceid;  // 设备ID
 	public String osVersion; // 操作系统版本
 	public String mobileType;// 手机型号
@@ -54,9 +54,9 @@ public class CrashApplication extends Application {
      * 单例，返回一个实例
      * @return
      */
-    public static CrashApplication getInstance() {
+    public static GlobalApplication getInstance() {
         if (instance == null) {
-			instance=new CrashApplication();
+			instance=new GlobalApplication();
         }
         return instance;
     }

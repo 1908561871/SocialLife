@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,6 +25,8 @@ public class EditTextWithDeleteButton extends LinearLayout {
 	protected ImageButton clearTextButton;
 	protected boolean isShowDeleteBt;
 	protected float textSize;
+	protected String digits;
+	private boolean  isPassWord;
 	public interface TextChangedListener extends TextWatcher{
 	}
 	TextChangedListener editTextListener = null;
@@ -55,7 +59,9 @@ public class EditTextWithDeleteButton extends LinearLayout {
 					R.styleable.EditTextWithDeleteButton_deleteButtonRes,
 					R.drawable.text_field_clear_btn);
 			isShowDeleteBt=a.getBoolean(R.styleable.EditTextWithDeleteButton_isShowDeleteBt, false);
-			textSize=a.getDimensionPixelSize(R.styleable.EditTextWithDeleteButton_textSize,14);
+			textSize=a.getDimensionPixelSize(R.styleable.EditTextWithDeleteButton_textSize, 14);
+			digits=a.getString(R.styleable.EditTextWithDeleteButton_digits);
+			isPassWord=a.getBoolean(R.styleable.EditTextWithDeleteButton_password, false);
 		} finally {
 			a.recycle();
 		}
@@ -79,6 +85,17 @@ public class EditTextWithDeleteButton extends LinearLayout {
 
 			}
 		});
+		editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+
+				if (hasFocus){
+					judgeIfShowDeleteBtn();
+				}else{
+					clearTextButton.setVisibility(View.GONE);
+				}
+			}
+		});
 		clearTextButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -89,6 +106,20 @@ public class EditTextWithDeleteButton extends LinearLayout {
 		});
 	}
 
+
+	public  void judgeIfShowDeleteBtn(){
+
+		if (editText.getText().toString().length() > 0)
+		{
+			if (isShowDeleteBt){
+				clearTextButton.setVisibility(View.VISIBLE);
+			}
+		}else{
+			clearTextButton.setVisibility(View.GONE);
+		}
+
+	}
+
 	public TextWatcher txtEntered() {
 		return new TextWatcher() {
 			@Override
@@ -96,6 +127,8 @@ public class EditTextWithDeleteButton extends LinearLayout {
 					int count) {
 				 if (editTextListener != null)
 			            editTextListener.onTextChanged(s, start, before, count);
+				judgeIfShowDeleteBtn();
+
 
 			}
 
@@ -103,12 +136,7 @@ public class EditTextWithDeleteButton extends LinearLayout {
 			public void afterTextChanged(Editable s) {
 				if (editTextListener != null)
 		            editTextListener.afterTextChanged(s);
-				if (editText.getText().toString().length() > 0)
-					if (isShowDeleteBt){
-						clearTextButton.setVisibility(View.VISIBLE);
-					}
-				else
-					clearTextButton.setVisibility(View.GONE);
+
 			}
 
 			@Override
@@ -126,18 +154,26 @@ public class EditTextWithDeleteButton extends LinearLayout {
 	private EditText createEditText(Context context, String hintText) {
 		editText = new EditText(context);
 		editText.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+		editText.setEllipsize(TextUtils.TruncateAt.END);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 		editText.setLayoutParams(new TableLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
-		editText.setSingleLine();
+		editText.setLines(1);
 		editText.setHorizontallyScrolling(false);
 		editText.setVerticalScrollBarEnabled(true);
 		editText.setGravity(Gravity.LEFT);
 		editText.setBackground(null);
 		editText.setHintTextColor(getResources().getColor(R.color.light_gray_text));
 		editText.setHint(hintText);
-		editText.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+		editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		editText.setTextColor(getResources().getColor(R.color.primary_text));
+		if (!TextUtils.isEmpty(digits)){
+			editText.setKeyListener(DigitsKeyListener.getInstance(digits));
+		}
+		if (isPassWord)
+		{
+			editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		}
 		return editText;
 	}
 

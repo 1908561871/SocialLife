@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import cn.com.elex.social_life.sys.exception.CrashApplication;
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
 
 
 /**
@@ -20,14 +20,14 @@ import cn.com.elex.social_life.sys.exception.CrashApplication;
  */
 public abstract class BaseFragment extends Fragment {
     protected String TAG;
-    protected CrashApplication mApp;
+    protected GlobalApplication mApp;
     protected ProgressDialog mLoadingDialog;
     protected  boolean isFirstLoading ;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         TAG = this.getClass().getSimpleName();
-        mApp = CrashApplication.getInstance();
+        mApp = GlobalApplication.getInstance();
         mLoadingDialog = new ProgressDialog(activity);
         mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.setMessage("数据加载中...");

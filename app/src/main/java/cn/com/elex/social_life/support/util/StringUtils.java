@@ -296,5 +296,21 @@ public class StringUtils {
 
     }
 
+    /**
+     * 首字符是否以字母开头
+     * @param data
+     * @return
+     */
+    public static boolean isStartWithCharacter(String data){
+
+        char c=data.charAt(0);
+        if ((c>='a' && c<='z')||(c>='A' && c<='Z'))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
 }

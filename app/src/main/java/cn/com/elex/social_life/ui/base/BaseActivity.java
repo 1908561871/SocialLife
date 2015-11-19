@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 import cn.com.elex.social_life.R;
-import cn.com.elex.social_life.sys.exception.CrashApplication;
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import dmax.dialog.SpotsDialog;
@@ -29,7 +29,7 @@ import dmax.dialog.SpotsDialog;
  */
 public class BaseActivity extends FragmentActivity{
 
-	public  CrashApplication app;
+	public GlobalApplication app;
 	public int networkType;
 	public String networkName;
 	private boolean isShowNet;
@@ -38,7 +38,7 @@ public class BaseActivity extends FragmentActivity{
     protected Handler mHandler = new SafeHandler(this);
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		app = (CrashApplication) this.getApplication();
+		app = (GlobalApplication) this.getApplication();
 		addActivityToManager(this);
 		EventBus.getDefault().register(this);
 	}
@@ -224,7 +224,6 @@ public void setHeader(boolean isBack ,String titleName,String ActionName,View.On
 	public void goToPagerByIntent(Class cls){
 		Intent intent =new Intent(this,cls);
 		startActivity(intent);
-
 	}
 
 }

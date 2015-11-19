@@ -4,7 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 
-import cn.com.elex.social_life.sys.exception.CrashApplication;
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
 import cn.com.elex.social_life.model.LoginModel;
 import cn.com.elex.social_life.model.imodel.ILoginModel;
 import cn.com.elex.social_life.ui.activity.LoginActivity;
@@ -37,7 +37,7 @@ public class LoginPresenter {
                         loginModel.loginSuccess((LoginActivity)loginView);
                         ((LoginActivity)loginView).finish();
                     }else{
-                        ToastUtils.show(CrashApplication.getInstance(),e.getMessage());
+                        ToastUtils.show(GlobalApplication.getInstance(),e.getMessage());
                     }
                 }
             });

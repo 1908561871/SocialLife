@@ -53,5 +53,8 @@
         <attr name="deleteButtonRes" format="reference" />
         <attr name="rightLabelStyle" format="reference" />
         <attr name="textSize" format="dimension" />
+        <attr name="digits" format="string" />
+        <attr name="password" format="boolean" />
+
     </declare-styleable>
 </resources>

@@ -2,6 +2,9 @@ package cn.com.elex.social_life.support.util;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
+
 /**
  * ToastUtils
  * 
@@ -44,4 +47,8 @@ public class ToastUtils {
     public static void show(Context context, String format, int duration, Object... args) {
         show(context, String.format(format, args), duration);
     }
+    public static void show( CharSequence text) {
+        show(GlobalApplication.getInstance(), text, Toast.LENGTH_SHORT);
+    }
+
 }

@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 
 import java.io.InputStream;
 
-import cn.com.elex.social_life.sys.exception.CrashApplication;
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
 
 /**
  * Created by zhangweibo on 2015/11/13.
@@ -16,7 +16,7 @@ public class BitmapUtil {
 
     public static Bitmap getBitmapEmojiFromAssert(String path) {
 
-        AssetManager mngr = CrashApplication.getInstance().getAssets();
+        AssetManager mngr = GlobalApplication.getInstance().getAssets();
         InputStream in = null;
         try {
             in = mngr.open("emoticons/" + path);
