@@ -56,12 +56,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:background">@color/white</item>
     </style>
 
     <style name="edittext_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/sml_text_size</item>
+
     </style>
 
     <style name="base_style_mw">
@@ -134,4 +136,15 @@
 
 
 
+
+    <style name="btn_commit_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btn_height</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_public_orange</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

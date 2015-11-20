@@ -29,6 +29,8 @@
         <activity android:name=".ui.activity.AddFriendActivity" />
         <activity android:name=".ui.activity.ChatRoomActivity" />
         <activity android:name=".ui.activity.GuideActivity" />
+        <activity android:name=".ui.activity.RegisterByEmailActivity" />
+        <activity android:name=".ui.activity.CompleteInformationActivity" />
 
         <service android:name="com.avos.avoscloud.PushService" />
 

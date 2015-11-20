@@ -91,12 +91,22 @@
     <string name="register_name_digits">._0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
     <string name="email_sample">sample@mail.com</string>
     <string name="passwrod_sample">不少于4位的数字或字母</string>
+    <!--完善资料-->
+    <string name="complete_information">完善资料</string>
+    <string name="select_own_icon">*选择属于自己的头像</string>
+    <string name="nicker">昵称</string>
+    <string name="sex">性别</string>
+    <string name="mail">男</string>
+    <string name="femail">女</string>
+
+    <string name="please_input_your_nicker">请输入您的昵称</string>
 
 
     <!--    toast信息-->
     <string name="register_success">注册成功</string>
     <string name="register_failure">注册失败</string>
-    <string name="password_format_error">密码输入不正确或者格式有误</string>
+    <string name="password_format_error">密码不能小于6个字符</string>
     <string name="username_format_error">用户名格式不正确</string>
+    <string name="email_format_error">邮箱格式不正确</string>
 
 </resources>

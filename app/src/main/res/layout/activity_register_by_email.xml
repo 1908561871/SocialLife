@@ -6,13 +6,20 @@
     <include
         layout="@layout/activity_header_title"
         ></include>
+    <org.buraktamturk.loadingview.LoadingView
+        android:id="@+id/loadingview"
+        app:lv_loading="false"
+        style="@style/base_style_mw">
 
-
+        <LinearLayout
+           style="@style/linear_layout_vertical_mw">
         <LinearLayout
             style="@style/base_style_mw"
             android:gravity="center"
-            android:padding="10dp">
-
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:paddingRight="@dimen/horizontal_margin"
+            android:paddingTop="@dimen/verticl_margin"
+            >
             <TextView
                style="@style/commen_text_style_ww"
                 android:text="@string/email"/>
@@ -23,19 +30,20 @@
                 app:hintText="@string/email_sample"
                 app:isShowDeleteBt="true"
                 app:textSize="@dimen/common_text_size"
-                app:digits="@string/register_name_digits"
                 />
         </LinearLayout>
         <View
             style="@style/divider_style"
             android:background="@color/orangle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
             ></View>
         <LinearLayout
             style="@style/base_style_mw"
             android:gravity="center"
-            android:padding="10dp">
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:paddingRight="@dimen/horizontal_margin"
+            android:paddingTop="@dimen/verticl_margin">
             <TextView
                 style="@style/commen_text_style_ww"
                 android:text="@string/password"/>
@@ -53,17 +61,15 @@
         <View
             style="@style/divider_style"
             android:background="@color/orangle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
             ></View>
+        </LinearLayout>
+    </org.buraktamturk.loadingview.LoadingView>
 
     <TextView
-        android:id="@+id/btn_complete"
-        style="@style/big_text_style_ww"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/btn_height"
-        android:layout_margin="20dp"
-        android:background="@drawable/btn_public_orange"
+        android:id="@+id/btn_register"
+        style="@style/btn_commit_style"
         android:text="@string/register"
-        android:textColor="@color/white" />
+        />
 </LinearLayout>

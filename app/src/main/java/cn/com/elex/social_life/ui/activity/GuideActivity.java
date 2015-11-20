@@ -64,7 +64,7 @@ public class GuideActivity extends BaseActivity {
 
     @OnClick(R.id.tv_register)
     public void register(){
-        goToPagerByIntent(RegisterActivity.class);
+        goToPagerByIntent(RegisterByEmailActivity.class);
     }
 
 

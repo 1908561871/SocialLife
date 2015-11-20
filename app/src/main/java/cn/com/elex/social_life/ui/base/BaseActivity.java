@@ -172,7 +172,11 @@ public void setHeader(String titleName){
 	setHeader(false, titleName);
 
 }
+public void setHeader(int titleName){
 
+		setHeader(false, getResources().getString(titleName));
+
+}
 	/**
 	 *
 	 * @param isBack   是否显示回退
