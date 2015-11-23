@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.com.elex.social_life.support.util.MemoryControl;
+
 /**
  * @author yyx
  * @2015-5-15
@@ -166,17 +168,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			long timestamp = System.currentTimeMillis();
 			String time = formatter.format(new Date());
 			String fileName = time + "-" + timestamp + ".log";
-			if (Environment.getExternalStorageState().equals(
-					Environment.MEDIA_MOUNTED)) {
-				String path = "/sdcard/crash/";
-				File dir = new File(path);
-				if (!dir.exists()) {
-					dir.mkdirs();
-				}
-				FileOutputStream fos = new FileOutputStream(path + fileName);
-				fos.write(sb.toString().getBytes());
-				fos.close();
-			}
+			MemoryControl.wirteCrashToFile(fileName,sb.toString().getBytes());
 			return fileName;
 		} catch (Exception e) {
 			Log.e(TAG, "an error occured while writing file...", e);

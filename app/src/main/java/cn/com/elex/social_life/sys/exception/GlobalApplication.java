@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 
 
@@ -22,6 +23,7 @@ import java.util.List;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.support.config.Constant;
+import cn.com.elex.social_life.support.util.BitmapUtil;
 import cn.com.elex.social_life.sys.receiver.im.IMMessageReceiver;
 
 
@@ -41,6 +43,7 @@ public class GlobalApplication extends Application {
 	public String mobileType;// 手机型号
 	public String version;   // app的versionName
 	public int versionCode;  // app的versionCode
+	public Bitmap tempBitmap;
 	private UserInfo userInfo;
 	@Override
 	public void onCreate() {
@@ -121,6 +124,16 @@ public class GlobalApplication extends Application {
 	}
 
 
+	/**
+	 * 释放图片
+	 */
+	public void recycleBitmap(){
 
+		if (tempBitmap!=null && !tempBitmap.isRecycled()){
+			tempBitmap.recycle();
+			System.gc();
+		}
+
+	}
 
 }
