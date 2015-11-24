@@ -1,5 +1,6 @@
 package cn.com.elex.social_life.model.bean;
 
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 
@@ -29,11 +30,32 @@ public class UserInfo extends AVUser{
         return this.getString("nickName");
     }
 
+
+
     public String getAccountType() {
         return this.getString("accountType");
     }
 
     public void setAccountType(String accountType) {
         this.put("accountType", accountType);
+    }
+
+    //头像URL
+    public void setHeadIconUrl(AVFile icon) {
+        this.put("headIconUrl", icon);
+    }
+
+    public AVFile getHeadIconUrl() {
+        return this.getAVFile("headIconUrl");
+    }
+
+
+    //性别
+    public void setSexType(int  sexType) {
+        this.put("sexType", sexType);
+    }
+
+    public int getSexType() {
+        return this.getInt("sexType");
     }
 }

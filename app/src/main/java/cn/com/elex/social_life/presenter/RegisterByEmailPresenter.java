@@ -2,8 +2,14 @@ package cn.com.elex.social_life.presenter;
 
 import android.text.TextUtils;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.cloud.ClientUserManager;
 import cn.com.elex.social_life.model.RegisterByEmialModel;
+import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.model.imodel.IRegisterByEmailModel;
 import cn.com.elex.social_life.support.callback.MsgCallBack;
 import cn.com.elex.social_life.support.util.StringUtils;
@@ -28,7 +34,7 @@ public class RegisterByEmailPresenter {
         model=new RegisterByEmialModel();
     }
 
-    public void register(String email,String pwd){
+    public void register(final String email, final String pwd){
       if (!StringUtils.checkEmail(email))
       {
           ToastUtils.show(GlobalApplication.getInstance().getString(R.string.email_format_error));
@@ -45,9 +51,17 @@ public class RegisterByEmailPresenter {
            public void success() {
                view.hideLoadingView();
                ToastUtils.show(GlobalApplication.getInstance().getString(R.string.register_success));
-               ( (RegisterByEmailActivity)view).goToPagerByIntent(CompleteInformationActivity.class);
+               ClientUserManager.getInstance().loginByUserName(email, pwd, new LogInCallback() {
+                   @Override
+                   public void done(AVUser avUser, AVException e) {
+                       model. goToCompleteInformation((UserInfo)avUser,pwd,(RegisterByEmailActivity) view);
+                   }
+                   @Override
+                   protected void internalDone0(Object o, AVException e) {
+                       ToastUtils.show(e.getMessage());
+                   }
+               });
            }
-
            @Override
            public void failure(String msg) {
                ToastUtils.show(msg);
@@ -55,5 +69,8 @@ public class RegisterByEmailPresenter {
            }
        });
     }
+
+
+
 
 }

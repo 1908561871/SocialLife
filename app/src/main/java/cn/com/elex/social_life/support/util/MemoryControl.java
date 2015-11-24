@@ -14,7 +14,7 @@ import java.io.IOException;
 public class MemoryControl {
 
 
-    public static final String ROOT_PATH= Environment.getExternalStorageDirectory().getAbsolutePath()+"/social/";
+    public static final String ROOT_PATH= Environment.getExternalStorageDirectory().getPath()+"/social/";
 
     public static final String IMAGE_PATH=ROOT_PATH+"image/";
 
@@ -40,15 +40,25 @@ public class MemoryControl {
     }
 
 
-    public static String getTempImagePath(){
+    public static File getTempImageFile(){
         if (isSDCardAvailable()){
 
-            File file=new File(TEMP_IMAGE_PATH);
+            File file=new File(IMAGE_PATH);
             if (!file.exists())
             {
                 file.mkdirs();
             }
-            return TEMP_IMAGE_PATH;
+
+            file=new File(TEMP_IMAGE_PATH);
+            if (!file.exists())
+            {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return file;
         }
         return null;
     }

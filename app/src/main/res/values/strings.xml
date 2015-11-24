@@ -99,6 +99,9 @@
     <string name="mail">男</string>
     <string name="femail">女</string>
 
+
+
+
     <string name="please_input_your_nicker">请输入您的昵称</string>
 
 
@@ -112,5 +115,11 @@
     <string name="password_format_error">密码不能小于6个字符</string>
     <string name="username_format_error">用户名格式不正确</string>
     <string name="email_format_error">邮箱格式不正确</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_input_necker">请填写昵称</string>
+    <string name="please_select_headicon">请选择一张头像</string>
+    <string name="upload_image_success">图片上传成功</string>
+    <string name="upload_image_failure">图片上传失败</string>
+    <string name="im_login_failure">IM登录失败</string>
 
 </resources>

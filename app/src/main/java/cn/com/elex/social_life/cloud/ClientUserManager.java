@@ -5,8 +5,10 @@ import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 
+import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.support.callback.IMLoginCallBack;
+import cn.com.elex.social_life.sys.exception.GlobalApplication;
 
 /**
  * Created by zhangweibo on 2015/11/5.
@@ -61,8 +63,13 @@ public class ClientUserManager {
      */
 
     public  void imLogin(IMLoginCallBack callBack){
-
-        obtainCurrentClentUser().open(callBack);
+        AVIMClient client=obtainCurrentClentUser();
+        if (client!=null)
+        {
+            client.open(callBack);
+        }else{
+            callBack.failure(GlobalApplication.getInstance().getResources().getString(R.string.im_login_failure));
+        }
     }
 
     /**
@@ -70,10 +77,11 @@ public class ClientUserManager {
      * @param callBack
      */
     public void imQuit(IMLoginCallBack callBack){
-
-
-        obtainCurrentClentUser().close(callBack);
-
+        AVIMClient client=obtainCurrentClentUser();
+        if (client!=null)
+        {
+            client.close(callBack);
+        }
     }
 
 
@@ -86,11 +94,19 @@ public class ClientUserManager {
 
     public  void loginByUserName(String useName ,String pwd, LogInCallback callback)
     {
-
         AVUser.logInInBackground(useName, pwd, callback);
 
     }
 
+
+    /**
+     * 用户退出
+     * @param callBack
+     */
+    public void userQuit(IMLoginCallBack callBack){
+
+        imQuit(callBack);
+    }
 
 
 

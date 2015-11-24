@@ -17,7 +17,7 @@ import cn.com.elex.social_life.ui.base.BaseActivity;
 import cn.com.elex.social_life.ui.iview.IMainTabView;
 
 
-public class MainTabTabActivity extends BaseActivity implements IMainTabView,TabHost.OnTabChangeListener {
+public class MainTabActivity extends BaseActivity implements IMainTabView,TabHost.OnTabChangeListener {
     //内容显示区
     @Bind(R.id.fl_content)
     FrameLayout fl_content;

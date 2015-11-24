@@ -1,7 +1,9 @@
 package cn.com.elex.social_life.ui.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,25 +14,32 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+
+import com.avos.avoscloud.AVFile;
+
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.model.CompleteInformationModel;
+import cn.com.elex.social_life.model.bean.UserInfo;
+import cn.com.elex.social_life.presenter.CompleteInformationPresenter;
+import cn.com.elex.social_life.support.util.BitmapUtil;
 import cn.com.elex.social_life.support.util.MemoryControl;
-import cn.com.elex.social_life.support.util.ToastUtils;
 import cn.com.elex.social_life.support.view.dialog.ActionSheetDialog;
 import cn.com.elex.social_life.support.view.dialog.base.OnOperItemClickL;
 import cn.com.elex.social_life.support.view.imageview.CircleImageView;
 import cn.com.elex.social_life.sys.exception.GlobalApplication;
 import cn.com.elex.social_life.ui.base.BaseActivity;
+import cn.com.elex.social_life.ui.iview.ICompleteInformationView;
 
 /**
  * Created by zhangweibo on 2015/11/19.
  * 完善资料
  */
-public class CompleteInformationActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class CompleteInformationActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener ,ICompleteInformationView{
 
 
     @Bind(R.id.nickername)
@@ -43,10 +52,12 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
     RadioButton mail;
     @Bind(R.id.femail)
     RadioButton femail;
-    private static final int PICKER = 1;
-    private static final int CROP = 2;
-    private static final int TAKE_PHOTO = 3;
-
+    CompleteInformationPresenter presenter;
+    private int requestCode;
+    private String path;
+    private Bitmap userBitmap;
+    private UserInfo userInfo;
+    private String password;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,26 +65,30 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
         ButterKnife.bind(this);
         setHeader(R.string.complete_information);
         radioGroup.setOnCheckedChangeListener(this);
+        presenter=new CompleteInformationPresenter(this);
+        userInfo=getIntent().getParcelableExtra("user_info");
+        password=getIntent().getStringExtra("pass_word");
     }
+
 
     @OnClick(R.id.user_icon)
     public void choosePhoto() {
         final String[] stringItems = {"相册", "拍照"};
         final ActionSheetDialog dialog = new ActionSheetDialog(this, stringItems, userIcon);
         dialog.isTitleShow(false).show();
-
         dialog.setOnOperItemClickL(new OnOperItemClickL() {
             @Override
             public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    chooseHeadIcon();
+                    requestCode= CompleteInformationModel.PICKER_PHOTO;
+                    presenter.pickPhoto();
                 } else if (position == 1) {
-                    takePhotos();
+                    requestCode= CompleteInformationModel.TAKE_PHOTO;
+                    presenter.takePhoto();
                 }
                 dialog.dismiss();
             }
         });
-
     }
 
 
@@ -88,40 +103,31 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
         }
     }
 
-    public void chooseHeadIcon()
-    {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICKER);
-
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK)
-        {
-            if (requestCode==PICKER){
-                if (data.getData()!=null){
-                    startActivityForResult(new Intent(this,CropActivity.class).putExtra("uri",data.getData()),CROP);
-                }
-            }else if (requestCode==TAKE_PHOTO){
-                startActivityForResult(new Intent(this,CropActivity.class).putExtra("uri",Uri.parse(MemoryControl.getTempImagePath())),CROP);
-            }else if(requestCode==CROP){
-                userIcon.setImageBitmap(GlobalApplication.getInstance().tempBitmap);
+        if (resultCode==RESULT_OK){
+
+            if (requestCode==CompleteInformationModel.PICKER_PHOTO && data.getData()!=null)
+            {
+                    path=getRealPathFromURI(data.getData());
+                    presenter.cropPhoto();
+            }else if (requestCode==CompleteInformationModel.TAKE_PHOTO){
+                    path=MemoryControl.getTempImageFile().getPath();
+                    presenter.cropPhoto();
+
+            }else if (requestCode==CompleteInformationModel.CROP_PHOTO){
+                    userBitmap=GlobalApplication.getInstance().tempBitmap;
+                    userIcon.setImageBitmap(userBitmap);
             }
         }
     }
 
-    public void takePhotos(){
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(MemoryControl.getTempImagePath()));
-
-        startActivityForResult(intent, TAKE_PHOTO);
+    @OnClick(R.id.btn_complete)
+    public void completeRegister(){
+        presenter.completeRegister();
     }
-
 
 
     @Override
@@ -131,7 +137,59 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
     }
 
 
+    @Override
+    public String getNicker() {
+        return nickername.getText().toString();
+    }
 
+    @Override
+    public String getPassWord() {
+        return password;
+    }
+
+    @Override
+    public int getSexType() {
+        return mail.isChecked()?1:femail.isChecked()?2:0;
+    }
+
+    @Override
+    public Bitmap getBitmap() {
+        return userBitmap;
+    }
+
+    @Override
+    public int getRequestCode() {
+        return requestCode;
+    }
+
+    @Override
+    public void setRequestCode(int code) {
+        requestCode=code;
+    }
+
+    @Override
+    public String getImagePath() {
+        return path;
+    }
+
+    @Override
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if(cursor.moveToFirst()){;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
 
 
 

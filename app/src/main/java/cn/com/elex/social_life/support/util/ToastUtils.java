@@ -51,4 +51,8 @@ public class ToastUtils {
         show(GlobalApplication.getInstance(), text, Toast.LENGTH_SHORT);
     }
 
+    public static void show( int res) {
+        show(GlobalApplication.getInstance(), GlobalApplication.getInstance().getResources().getString(res), Toast.LENGTH_SHORT);
+    }
+
 }

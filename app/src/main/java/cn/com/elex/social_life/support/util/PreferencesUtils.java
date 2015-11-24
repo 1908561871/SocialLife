@@ -30,6 +30,8 @@ import android.content.SharedPreferences;
 public class PreferencesUtils {
 
     public static String PREFERENCE_NAME = "TrineaAndroidCommon";
+    public static String USER_NAME = "username";
+    public static String PASS_WORD = "password";
 
     private PreferencesUtils() {
         throw new AssertionError();

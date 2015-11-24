@@ -27,19 +27,13 @@ public class CropActivity extends BaseActivity {
 
     @Bind(R.id.cropImageView)
     CropImageView cropImageView;
-    private Uri uri;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_image);
         ButterKnife.bind(this);
-        uri=getIntent().getParcelableExtra("uri");
-        cropImageView.setImageBitmap(BitmapFactory.decodeFile(uri.getPath()));
-       /* try {
-            cropImageView.setImageBitmap( MediaStore.Images.Media.getBitmap(getContentResolver(),uri));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        cropImageView.setImageBitmap(GlobalApplication.getInstance().tempBitmap);
     }
 
     @Override
@@ -50,14 +44,13 @@ public class CropActivity extends BaseActivity {
 
     @OnClick(R.id.confirm)
     public void confirm(){
-        GlobalApplication.getInstance().tempBitmap=BitmapUtil.compressImage(cropImageView.getCroppedBitmap());
+        GlobalApplication.getInstance().tempBitmap=cropImageView.getCroppedBitmap();
         setResult(RESULT_OK);
         finish();
     }
 
     @OnClick(R.id.cancel)
     public void cancel(){
-        GlobalApplication.getInstance().tempBitmap=BitmapUtil.compressImage(cropImageView.getCroppedBitmap());
         setResult(RESULT_CANCELED);
         finish();
     }

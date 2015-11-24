@@ -54,7 +54,6 @@ public class RegisterByEmailActivity extends BaseActivity implements IRegisterBy
     @Override
     public void showLoadingView() {
         loadingView.setLoading(true);
-
         register.setClickable(false);
     }
 
