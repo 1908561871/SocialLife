@@ -67,8 +67,6 @@ public class ClientUserManager {
         if (client!=null)
         {
             client.open(callBack);
-        }else{
-            callBack.failure(GlobalApplication.getInstance().getResources().getString(R.string.im_login_failure));
         }
     }
 
@@ -94,7 +92,7 @@ public class ClientUserManager {
 
     public  void loginByUserName(String useName ,String pwd, LogInCallback callback)
     {
-        AVUser.logInInBackground(useName, pwd, callback);
+        AVUser.logInInBackground(useName, pwd, callback,UserInfo.class);
 
     }
 

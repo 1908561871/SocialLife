@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.presenter.LoginPresenter;
+import cn.com.elex.social_life.support.view.EditTextWithDeleteButton;
 import cn.com.elex.social_life.ui.base.BaseActivity;
 import cn.com.elex.social_life.ui.iview.ILoginView;
 
@@ -21,15 +22,11 @@ import cn.com.elex.social_life.ui.iview.ILoginView;
 public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Bind(R.id.et_username)
-    EditText et_username;
+    EditTextWithDeleteButton et_username;
     @Bind(R.id.et_userpwd)
-    EditText et_userpwd;
+    EditTextWithDeleteButton et_userpwd;
     @Bind(R.id.loadingview)
     LoadingView loadingview;
-    @Bind(R.id.tv_forgetpwd)
-    TextView tv_forgetpwd;
-    @Bind(R.id.tv_fastlogin)
-    TextView tv_fastlogin;
     LoginPresenter presenter;
 
     @Override
@@ -38,15 +35,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         presenter=new LoginPresenter(this);
-
-        setHeader(true, getResources().getString(R.string.login), getResources().getString(R.string.register), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.goToSignUp();
-            }
-        });
+        setHeader(true, R.string.login);
     }
-
 
     @Override
     public String getUserName() {
@@ -68,14 +58,13 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         loadingview.setLoading(false);
     }
 
-    @OnClick({R.id.btn_login, R.id.tv_forgetpwd,R.id.tv_fastlogin})
-    public void click(View view) {
 
+    @OnClick({R.id.btn_login, R.id.tv_forgetpwd})
+    public void click(View view) {
         switch (view.getId()){
             case R.id.btn_login:
                 presenter.login(getUserName(),getUserPwd());
                 break;
-
         }
     }
 

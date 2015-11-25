@@ -18,6 +18,7 @@ import java.lang.ref.WeakReference;
 import butterknife.ButterKnife;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.sys.exception.GlobalApplication;
+import cn.com.elex.social_life.ui.activity.MainTabActivity;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import dmax.dialog.SpotsDialog;
@@ -163,11 +164,14 @@ public class BaseActivity extends FragmentActivity{
 		 }
 	 });
 	 ((TextView) findViewById(R.id.tv_title)).setText(titleName);
-
  }
 
+	public void setHeader(boolean isBack,int  titleName) {
 
-public void setHeader(String titleName){
+		setHeader(isBack,getResources().getString(titleName));
+	}
+
+		public void setHeader(String titleName){
 
 	setHeader(false, titleName);
 
@@ -229,5 +233,21 @@ public void setHeader(boolean isBack ,String titleName,String ActionName,View.On
 		Intent intent =new Intent(this,cls);
 		startActivity(intent);
 	}
+
+
+	public void finishOtherActivty(){
+
+		for (int i = app.activityManager.size() - 1; i >= 0; i--) {
+			if (!(app.activityManager.get(i) instanceof MainTabActivity))
+			{
+				app.activityManager.get(i).finish();
+				app.activityManager.remove(i);
+
+			}
+
+		}
+	}
+
+
 
 }

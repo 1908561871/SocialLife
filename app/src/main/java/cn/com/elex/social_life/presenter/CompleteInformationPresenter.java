@@ -63,15 +63,14 @@ public class CompleteInformationPresenter {
             ToastUtils.show(R.string.please_select_sex);
             return ;
         }
-        model.uploadData(view.getUserInfo(), view.getPassWord(), view.getNicker(), view.getSexType(), view.getBitmap(), new CustomSaveCallBack() {
+        model.uploadData(view.getNicker(), view.getSexType(), view.getBitmap(), new CustomSaveCallBack() {
             @Override
             public void success() {
-                model.goToMainTabActivity(view.getUserInfo().getUsername(),view.getPassWord(), (Context) view);
+                model.goToMainTabActivity((Context) view);
             }
-
             @Override
             public void failure(String error) {
-
+ToastUtils.show(error);
             }
         });
 

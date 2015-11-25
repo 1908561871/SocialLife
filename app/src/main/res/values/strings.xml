@@ -121,5 +121,12 @@
     <string name="upload_image_success">图片上传成功</string>
     <string name="upload_image_failure">图片上传失败</string>
     <string name="im_login_failure">IM登录失败</string>
+    <string name="im_login_success">IM登录成功</string>
+    <string name="press_again_exit">再按一次退出程序</string>
+    <string name="please_input_email">请输入邮箱</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="im_quit_success">IM退出成功</string>
+    <string name="im_quit_failure">IM退出失败</string>
+
 
 </resources>

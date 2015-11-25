@@ -111,8 +111,7 @@ public class MemoryControl {
 
     public static void   writeMsgToFile(String filePath,String name,byte[] b){
 
-        String path = "/sdcard/crash/";
-        File dir = new File(path);
+        File dir = new File(CRASH_PATH);
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -137,8 +136,4 @@ public class MemoryControl {
         }
 
     }
-
-
-
-
 }

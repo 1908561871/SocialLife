@@ -21,10 +21,8 @@ public interface ICompleteInformationModel {
 
     void cropPhoto(String path,Activity context,int requestCode);
 
-     void uploadData(final UserInfo info, final String pwd, final String nicker, final int sexType,Bitmap bimap, final SaveCallback callback) ;
+     void uploadData( final String nicker, final int sexType,Bitmap bimap, final SaveCallback callback) ;
 
-     void login(UserInfo info, String pwd,LogInCallback callback) ;
-     void goToMainTabActivity(String userName,String password,Context context) ;
-
+     void goToMainTabActivity(Context context) ;
 
 }

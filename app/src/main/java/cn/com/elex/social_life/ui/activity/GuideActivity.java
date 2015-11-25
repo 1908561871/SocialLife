@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.zanlabs.widget.infiniteviewpager.InfiniteViewPager;
 import com.zanlabs.widget.infiniteviewpager.indicator.CirclePageIndicator;
+import com.zanlabs.widget.infiniteviewpager.indicator.LinePageIndicator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,7 +21,7 @@ public class GuideActivity extends BaseActivity {
 
 
     @Bind(R.id.indicator)
-    CirclePageIndicator indicator;
+    LinePageIndicator indicator;
     @Bind(R.id.viewpager)
     InfiniteViewPager viewpager;
     private GuideIntroduceAdpter adapter;
@@ -55,21 +56,25 @@ public class GuideActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.tv_login)
+    @OnClick({R.id.tv_login})
     public void login() {
 
+        // goToPagerByIntent(LoginActivity.class);
         goToPagerByIntent(LoginActivity.class);
 
     }
 
-    @OnClick(R.id.tv_register)
+
+
+  /*  @OnClick(R.id.tv_register)
     public void register(){
         goToPagerByIntent(RegisterByEmailActivity.class);
+    }*/
+
+    @OnClick(R.id.tv_register)
+    public void register() {
+        goToPagerByIntent(RegisterByEmailActivity.class);
     }
-
-
-
-
 
 
 }

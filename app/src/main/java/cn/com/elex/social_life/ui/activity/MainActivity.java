@@ -23,7 +23,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        sdv_loadingview.setImageURI(Uri.parse("http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1205/02/c0/11459868_1335958865509.jpg"));
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -41,8 +40,9 @@ public class MainActivity extends BaseActivity {
         finish();
     }
 
-
-
-
-
+    @Override
+    public void finish() {
+        overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
+        super.finish();
+    }
 }

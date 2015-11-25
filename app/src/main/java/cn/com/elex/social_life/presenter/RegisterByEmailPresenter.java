@@ -51,16 +51,7 @@ public class RegisterByEmailPresenter {
            public void success() {
                view.hideLoadingView();
                ToastUtils.show(GlobalApplication.getInstance().getString(R.string.register_success));
-               ClientUserManager.getInstance().loginByUserName(email, pwd, new LogInCallback() {
-                   @Override
-                   public void done(AVUser avUser, AVException e) {
-                       model. goToCompleteInformation((UserInfo)avUser,pwd,(RegisterByEmailActivity) view);
-                   }
-                   @Override
-                   protected void internalDone0(Object o, AVException e) {
-                       ToastUtils.show(e.getMessage());
-                   }
-               });
+               model. goToCompleteInformation((UserInfo) AVUser.getCurrentUser(), pwd, (RegisterByEmailActivity) view);
            }
            @Override
            public void failure(String msg) {

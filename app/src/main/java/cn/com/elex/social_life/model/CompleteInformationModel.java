@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
 
@@ -16,6 +17,7 @@ import cn.com.elex.social_life.cloud.ClientUserManager;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.model.imodel.ICompleteInformationModel;
 import cn.com.elex.social_life.support.callback.CustomSaveCallBack;
+import cn.com.elex.social_life.support.callback.IMLoginCallBack;
 import cn.com.elex.social_life.support.util.BitmapUtil;
 import cn.com.elex.social_life.support.util.MemoryControl;
 import cn.com.elex.social_life.support.util.PreferencesUtils;
@@ -57,7 +59,8 @@ public class CompleteInformationModel  implements ICompleteInformationModel{
 
 
     @Override
-    public void uploadData(final UserInfo info, final String pwd, final String nicker, final int sexType,Bitmap bimap, final SaveCallback callback) {
+    public void uploadData( final String nicker, final int sexType,Bitmap bimap, final SaveCallback callback) {
+        final UserInfo info= (UserInfo) AVUser.getCurrentUser();
         final AVFile file=new AVFile(info.getObjectId(),BitmapUtil.bitmapConverTobyteArray(bimap));
         //图片上传
         file.saveInBackground(new CustomSaveCallBack() {
@@ -72,26 +75,14 @@ public class CompleteInformationModel  implements ICompleteInformationModel{
             @Override
             public void failure(String error) {
                 ToastUtils.show(R.string.upload_image_failure);
-
             }
         });
     }
 
     @Override
-    public void goToMainTabActivity(String userName,String password,Context context) {
-        PreferencesUtils.putString(context,PreferencesUtils.USER_NAME,userName);
-        PreferencesUtils.putString(context, PreferencesUtils.PASS_WORD, password);
+    public void goToMainTabActivity(Context context) {
         Intent intent=new Intent(context, MainTabActivity.class);
-        ClientUserManager.getInstance().imLogin(null);
         context.startActivity(intent);
-    }
-
-    @Override
-    public void login(UserInfo info, String pwd,LogInCallback callback) {
-
-        //进行登录操作
-        ClientUserManager.getInstance().loginByUserName(info.getUsername(), pwd, callback);
-
     }
 
 

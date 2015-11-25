@@ -35,7 +35,7 @@ public class RegisterByEmailActivity extends BaseActivity implements IRegisterBy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_by_email);
         ButterKnife.bind(this);
-        setHeader(R.string.register);
+        setHeader(true,R.string.register);
         presenter = new RegisterByEmailPresenter(this);
     }
 

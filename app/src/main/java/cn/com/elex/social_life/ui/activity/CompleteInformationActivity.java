@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVUser;
 
 import java.io.IOException;
 
@@ -56,7 +57,6 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
     private int requestCode;
     private String path;
     private Bitmap userBitmap;
-    private UserInfo userInfo;
     private String password;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,6 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
         setHeader(R.string.complete_information);
         radioGroup.setOnCheckedChangeListener(this);
         presenter=new CompleteInformationPresenter(this);
-        userInfo=getIntent().getParcelableExtra("user_info");
         password=getIntent().getStringExtra("pass_word");
     }
 
@@ -172,18 +171,13 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
         return path;
     }
 
-    @Override
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
 
 
     public String getRealPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = { MediaStore.Images.Media.DATA };
         Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if(cursor.moveToFirst()){;
+        if(cursor.moveToFirst()){
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             res = cursor.getString(column_index);
         }

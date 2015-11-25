@@ -23,6 +23,5 @@ public interface ICompleteInformationView {
 
      String getImagePath();
 
-     UserInfo getUserInfo();
 
 }

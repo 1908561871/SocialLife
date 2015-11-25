@@ -9,12 +9,11 @@
     <RelativeLayout
         style="@style/base_style_mm"
         android:layout_weight="3">
-        <com.zanlabs.widget.infiniteviewpager.indicator.CirclePageIndicator
+        <com.zanlabs.widget.infiniteviewpager.indicator.LinePageIndicator
             android:id="@+id/indicator"
-           style="@style/base_style_mw"
+            style="@style/base_style_mw"
             android:layout_alignParentBottom="true"
             app:fillColor="@color/orangle"
-            app:radius="5dp"
             app:pageColor="@color/light_gray_text" />
         <com.zanlabs.widget.infiniteviewpager.InfiniteViewPager
             android:id="@+id/viewpager"

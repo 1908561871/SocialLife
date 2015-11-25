@@ -1,16 +1,21 @@
 package cn.com.elex.social_life.ui.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.avos.avoscloud.AVUser;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.ui.base.BaseFragment;
 
 
@@ -20,6 +25,9 @@ import cn.com.elex.social_life.ui.base.BaseFragment;
 public class MineTabFragment extends BaseFragment {
 
 
+    @Bind(R.id.nickername)
+    TextView nickerName;
+    private UserInfo info;
 
     @Override
     protected int getResourceLyoutID() {
@@ -38,12 +46,13 @@ public class MineTabFragment extends BaseFragment {
 
     @Override
     protected void setViewData() {
-
+        userIcon.setImageURI(Uri.parse(info.getHeadIconUrl().getUrl()));
+        nickerName.setText(info.getNickName());
     }
 
     @Override
     protected void preloadDataInit() {
-
+        info = (UserInfo) AVUser.getCurrentUser();
     }
 
     @Override
@@ -70,21 +79,19 @@ public class MineTabFragment extends BaseFragment {
     RelativeLayout setting;
     @Bind(R.id.more)
     RelativeLayout more;
+    @Bind(R.id.user_icon)
+    SimpleDraweeView userIcon;
 
-    @OnClick({R.id.user_info,R.id.share,R.id.posting,R.id.setting,R.id.more})
+    @OnClick({R.id.user_info, R.id.share, R.id.posting, R.id.setting, R.id.more})
 
-    public void click(View v){
+    public void click(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
 
         }
 
-
-
     }
-
-
 
 
 }
