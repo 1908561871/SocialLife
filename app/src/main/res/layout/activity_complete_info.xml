@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/nickername"
-            style="@style/edittext_style"
+            style="@style/base_style_mw.edittext_sml"
             android:hint="@string/please_input_your_nicker" />
 
 

@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.UserInfo;
+import cn.com.elex.social_life.ui.activity.PublishLogActivity;
 import cn.com.elex.social_life.ui.base.BaseFragment;
 
 
@@ -82,16 +83,11 @@ public class MineTabFragment extends BaseFragment {
     @Bind(R.id.user_icon)
     SimpleDraweeView userIcon;
 
-    @OnClick({R.id.user_info, R.id.share, R.id.posting, R.id.setting, R.id.more})
-
-    public void click(View v) {
-
-        switch (v.getId()) {
-
-
-        }
-
+    @OnClick(R.id.posting)
+   public void post(){
+        goToPagerByIntent(PublishLogActivity.class);
     }
+
 
 
 }

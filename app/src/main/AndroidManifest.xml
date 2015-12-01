@@ -33,7 +33,10 @@
         <activity android:name=".ui.activity.RegisterByEmailActivity" />
         <activity android:name=".ui.activity.CompleteInformationActivity" />
         <activity android:name=".ui.activity.CropActivity" />
-
+        <activity android:name=".ui.activity.PublishLogActivity" />
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
         <service android:name="com.avos.avoscloud.PushService" />
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">

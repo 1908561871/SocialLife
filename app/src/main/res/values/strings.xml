@@ -107,6 +107,9 @@
 
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="remember_write_title">记得写标题哦~</string>
+    <string name="publish_log_detail">帖子光着好害羞，有图片或文字才能发布~</string>
+    <string name="locate_position">定位当前位置</string>
 
 
     <!--    toast信息-->

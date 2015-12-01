@@ -50,4 +50,5 @@ dependencies {
     compile 'com.github.d-max:spots-dialog:0.4@aar'
     compile project(':infiniteviewpager')
     compile files('src/main/libs/gson-2.2.1.jar')
+    compile project(':multi-image-selector')
 }

@@ -58,11 +58,20 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="edittext_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="base_style_mw.edittext_sml">
         <item name="android:background">@null</item>
         <item name="android:textSize">@dimen/sml_text_size</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColorHint">@color/light_gray_text</item>
+
+    </style>
+
+    <style name="base_style_mw.edittext_mid">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/mid_text_size</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColorHint">@color/light_gray_text</item>
+
 
     </style>
 
