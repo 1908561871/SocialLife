@@ -1,4 +1,4 @@
-package cn.com.elex.social_life.model.imodel;
+package cn.com.elex.social_life.model;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
+import cn.com.elex.social_life.model.imodel.IPublishLogModel;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
@@ -25,20 +26,12 @@ public class PublishLogModel implements  IPublishLogModel {
         intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
         // 选择模式
         intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
-        // 默认选择
+      /*  // 默认选择
         if(mSelectPath != null && mSelectPath.size()>0){
             intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
-        }
+        }*/
         context.startActivityForResult(intent, REQUEST_IMAGE);
     }
 
 
-    @Override
-    public void dealWithResult(int requestCode, int resultCode, Intent data) {
-
-
-
-
-
-    }
 }

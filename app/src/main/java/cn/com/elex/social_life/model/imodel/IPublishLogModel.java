@@ -13,6 +13,5 @@ public interface IPublishLogModel {
      void selectPhoto(Activity context, ArrayList<String> mSelectPath);
 
 
-    void dealWithResult(int requestCode, int resultCode, Intent data);
 
 }

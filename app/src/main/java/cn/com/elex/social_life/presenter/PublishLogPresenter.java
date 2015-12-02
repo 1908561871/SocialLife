@@ -2,8 +2,8 @@ package cn.com.elex.social_life.presenter;
 
 import android.app.Activity;
 
+import cn.com.elex.social_life.model.PublishLogModel;
 import cn.com.elex.social_life.model.imodel.IPublishLogModel;
-import cn.com.elex.social_life.model.imodel.PublishLogModel;
 import cn.com.elex.social_life.ui.iview.IPublishLogView;
 
 /**
@@ -28,11 +28,6 @@ public class PublishLogPresenter {
 
     }
 
-    public void dealWithResult(){
-
-        model.dealWithResult(view.getRequstCode(),view.getResultCode(),view.getData());
-
-    }
 
 
 

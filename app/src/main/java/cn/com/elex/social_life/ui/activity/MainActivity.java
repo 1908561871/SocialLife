@@ -9,6 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.cloud.ClientUserManager;
 import cn.com.elex.social_life.ui.base.BaseActivity;
 
 /**
@@ -26,20 +27,32 @@ public class MainActivity extends BaseActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                goToMainTabActivity();
-
+                if (ClientUserManager.getInstance().obtainCurrentUser()!=null)
+                {
+                    goToMainActivity();
+                }else{
+                    goToGuideActivity();
+                }
             }
         }, 3000);
 
     }
 
-    public void goToMainTabActivity(){
+
+    public void goToGuideActivity(){
         Intent intent=new Intent(this,GuideActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
 
+
+    public void goToMainActivity(){
+        Intent intent=new Intent(this,MainTabActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public void finish() {
         overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);

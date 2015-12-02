@@ -25,8 +25,11 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
     useLibrary 'org.apache.http.legacy'
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -51,4 +54,6 @@ dependencies {
     compile project(':infiniteviewpager')
     compile files('src/main/libs/gson-2.2.1.jar')
     compile project(':multi-image-selector')
+    compile files('src/main/libs/._AMap_Location_v2.0.0_20151117.jar')
+    compile files('src/main/libs/AMap_Location_v2.0.0_20151117.jar')
 }

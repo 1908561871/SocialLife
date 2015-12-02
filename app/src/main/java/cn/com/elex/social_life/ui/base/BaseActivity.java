@@ -4,12 +4,14 @@
 package cn.com.elex.social_life.ui.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -177,17 +179,21 @@ public class BaseActivity extends FragmentActivity{
 
 }
 public void setHeader(int titleName){
-
 		setHeader(false, getResources().getString(titleName));
-
 }
-	/**
-	 *
-	 * @param isBack   是否显示回退
-	 * @param titleName  标题名字
-	 * @param ActionName  右边的动作名字
-	 * @param clickListener 监听
-	 */
+
+
+public void setHeader(boolean isBack ,int title,int ActionName,View.OnClickListener clickListener) {
+
+	setHeader(isBack,getResources().getString(title),getResources().getString(ActionName),clickListener);
+}
+		/**
+         *
+         * @param isBack   是否显示回退
+         * @param titleName  标题名字
+         * @param ActionName  右边的动作名字
+         * @param clickListener 监听
+         */
 
 public void setHeader(boolean isBack ,String titleName,String ActionName,View.OnClickListener clickListener){
 	ImageView tv_left= (ImageView) findViewById(R.id.tv_left);
@@ -249,5 +255,19 @@ public void setHeader(boolean isBack ,String titleName,String ActionName,View.On
 	}
 
 
+	public void showSoftInput(View view){
+
+
+		InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		inputManager.showSoftInput(view, 0);
+
+	}
+
+	public void hideSoftInput(View view){
+
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
+
+	}
 
 }

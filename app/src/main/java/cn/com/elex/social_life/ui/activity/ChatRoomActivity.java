@@ -359,6 +359,4 @@ public class ChatRoomActivity extends BaseActivity implements EmoticonsGridAdapt
 
     }
 
-
-
 }
