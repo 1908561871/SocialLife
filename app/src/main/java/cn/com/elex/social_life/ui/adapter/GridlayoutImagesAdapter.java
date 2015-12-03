@@ -5,8 +5,11 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,9 +29,12 @@ public class GridlayoutImagesAdapter extends BaseAdapter {
 
     private ArrayList<String> imagePaths;
 
-    public GridlayoutImagesAdapter(Context context, ArrayList<String> imagePaths) {
+    private int itemHeight;
+
+    public GridlayoutImagesAdapter(Context context, ArrayList<String> imagePaths,int itemHeight) {
         this.context = context;
         this.imagePaths = imagePaths;
+        this.itemHeight=itemHeight;
     }
 
     @Override
@@ -47,15 +53,31 @@ public class GridlayoutImagesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder=null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.adapter_image_item, null);
-            convertView.setTag(new ViewHolder(convertView));
+            AbsListView.LayoutParams param = new AbsListView.LayoutParams(
+                    itemHeight,
+                    itemHeight);
+            convertView = LayoutInflater.from(context).inflate(R.layout.adapter_image_item,null);
+            holder=new ViewHolder(convertView);
+            holder.param=param;
+            convertView.setTag(holder);
+
         }
+
         holder= (ViewHolder) convertView.getTag();
-        //Picasso.with(context).load(new File(imagePaths.get(position))).fit().into(holder.ivIcons);
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePaths.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+        convertView.setLayoutParams(holder.param);
+       // adjustItemSize(convertView);
+        Picasso.with(context).load(new File(imagePaths.get(position))).fit().into(holder.ivIcons);
         return convertView;
     }
 
@@ -67,15 +89,28 @@ public class GridlayoutImagesAdapter extends BaseAdapter {
      */
 
 
+    public void adjustItemSize(View view){
+        view.measure(0,0);
+        ViewGroup.LayoutParams params= view.getLayoutParams();
+        params.height=view.getMeasuredWidth();
+        view.setLayoutParams(params);
+    }
+
+
+
     class ViewHolder {
         @Bind(R.id.iv_icons)
         ImageView ivIcons;
         @Bind(R.id.iv_delete)
         ImageView ivDelete;
-
+        AbsListView.LayoutParams param;
+        @Bind(R.id.parent_layout)
+         RelativeLayout parentLayout;
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
+
 
 }

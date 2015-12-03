@@ -201,7 +201,6 @@ public class ImageGridAdapter extends BaseAdapter {
         if(lp.height != mItemSize){
             view.setLayoutParams(mItemLayoutParams);
         }
-
         return view;
     }
 

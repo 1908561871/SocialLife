@@ -10,6 +10,7 @@ import android.os.Build;
 
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.model.bean.PublishLogBean;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.support.config.Constant;
 import cn.com.elex.social_life.support.util.BitmapUtil;
@@ -96,6 +98,7 @@ public class GlobalApplication extends Application {
 	 * 初始化实体
 	 */
 	public  void  resignEntity(){
+		AVObject.registerSubclass(PublishLogBean.class);
 
 	}
 

@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
@@ -22,6 +20,7 @@ import cn.com.elex.social_life.model.bean.LocationMsg;
 import cn.com.elex.social_life.presenter.PublishLogPresenter;
 import cn.com.elex.social_life.support.callback.LocationCallBack;
 import cn.com.elex.social_life.support.location.LocationManager;
+import cn.com.elex.social_life.support.util.ScreenUtil;
 import cn.com.elex.social_life.ui.adapter.GridlayoutImagesAdapter;
 import cn.com.elex.social_life.ui.base.BaseActivity;
 import cn.com.elex.social_life.ui.iview.IPublishLogView;
@@ -40,13 +39,16 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
     RelativeLayout parentLayout;
     @Bind(R.id.et_title)
     EditText etTitle;
+    @Bind(R.id.et_content)
+    EditText etContent;
     private ArrayList<String> mSelectPath;
     private PublishLogPresenter presenter;
     private int requestCode = 1;
     private int resultCode = 2;
     private Intent data;
-    private BaseAdapter imageAdapter;
+    private GridlayoutImagesAdapter imageAdapter;
 
+    private LocationMsg loacaitonMsg;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
         setHeader(true, R.string.publish_log, R.string.publish, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                presenter.commitData();
             }
         });
     }
@@ -65,8 +67,9 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
 
     public void init() {
         mSelectPath = new ArrayList<String>();
-        imageAdapter = new GridlayoutImagesAdapter(this, mSelectPath);
+        imageAdapter = new GridlayoutImagesAdapter(this, mSelectPath, getItemSize());
         layoutImages.setAdapter(imageAdapter);
+        keyBoardChangeListen();
     }
 
     @OnClick(R.id.image_select)
@@ -81,6 +84,7 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
         LocationManager.getInstance().obtainCurrentLocation(new LocationCallBack() {
             @Override
             public void locSuccess(LocationMsg msg) {
+                PublishLogActivity.this.loacaitonMsg=msg;
                 location.setText(msg.getAddr());
             }
 
@@ -98,9 +102,9 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
         this.requestCode = requestCode;
         this.resultCode = resultCode;
         this.data = data;
-        if(requestCode == 1){
-            if(resultCode == RESULT_OK){
-                 ArrayList<String>  path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                 mSelectPath.addAll(path);
                 imageAdapter.notifyDataSetChanged();
             }
@@ -128,15 +132,66 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
     }
 
     @Override
+    public String getLogContent() {
+        return etContent.getText().toString().trim();
+    }
+
+
+    @Override
+    public LocationMsg getLocation() {
+        return loacaitonMsg;
+    }
+
+    @Override
+    public String getLogTitle() {
+        return etTitle.getText().toString().trim();
+    }
+
+    @Override
     public Intent getData() {
         return data;
     }
 
+    @Override
+    public void showDialog() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideDialog() {
+hideLoadingDialog();
+    }
 
 
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+
+    public void keyBoardChangeListen() {
+
+        parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(new
+                 ViewTreeObserver.OnGlobalLayoutListener() {
+                     @Override
+                     public void onGlobalLayout() {
+
+                         Rect r = new Rect();
+                         parentLayout.getWindowVisibleDisplayFrame(r);
+                         int screenHeight = parentLayout.getRootView().getHeight();
+                         int heightDifference = screenHeight - (r.bottom - r.top);
+                         boolean visible = heightDifference > screenHeight / 3;
+                         layoutImages.setVisibility(visible ? View.GONE : View.VISIBLE);
+
+                     }
+                 });
+    }
+
+
+    public int getItemSize() {
+        int height;
+        height = (ScreenUtil.getWidth(this) - getResources().getDimensionPixelOffset(R.dimen.grid_space) * 5) / 4;
+        return height;
     }
 
 

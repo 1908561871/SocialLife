@@ -57,10 +57,9 @@
         style="@style/divider_style1"></View>
      <GridView
          android:id="@+id/layout_images"
-         android:verticalSpacing="10dp"
-         android:horizontalSpacing="10dp"
-         android:columnWidth="90dp"
-         android:numColumns="auto_fit"
+         android:verticalSpacing="@dimen/grid_space"
+         android:horizontalSpacing="@dimen/grid_space"
+         android:numColumns="4"
          style="@style/base_style_mw"></GridView>
     </LinearLayout>
     <EditText

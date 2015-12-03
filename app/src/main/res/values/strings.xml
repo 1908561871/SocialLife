@@ -135,6 +135,9 @@
     <string name="im_quit_success">IM退出成功</string>
     <string name="im_quit_failure">IM退出失败</string>
     <string name="location_failure">定位失败</string>
+    <string name="title_blank_error">标题不能为空</string>
+    <string name="content_blank_error">内容不能为空</string>
+    <string name="please_obtain_location">请获取当前位置</string>
 
 
 </resources>
