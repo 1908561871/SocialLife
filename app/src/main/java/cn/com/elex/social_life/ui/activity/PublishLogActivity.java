@@ -79,15 +79,12 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
 
     @OnClick(R.id.location)
     public void locatePositon() {
-        showSoftInput(etTitle);
-
         LocationManager.getInstance().obtainCurrentLocation(new LocationCallBack() {
             @Override
             public void locSuccess(LocationMsg msg) {
                 PublishLogActivity.this.loacaitonMsg=msg;
                 location.setText(msg.getAddr());
             }
-
             @Override
             public void locFailure() {
                 location.setText(getResources().getString(R.string.location_failure));

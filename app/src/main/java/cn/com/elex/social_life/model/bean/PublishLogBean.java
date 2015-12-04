@@ -3,10 +3,14 @@ package cn.com.elex.social_life.model.bean;
 import android.os.Parcel;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.com.elex.social_life.cloud.ClientUserManager;
 
 /**
  * Created by zhangweibo on 2015/12/3.
@@ -28,9 +32,9 @@ public class PublishLogBean extends AVObject{
 
     private String userName;
 
-    private ArrayList<String> imageUrls;
+    private ArrayList<AVFile> imageFiles;
 
-
+    private AVObject publishUser;
     public PublishLogBean(){
     }
 
@@ -87,11 +91,23 @@ public class PublishLogBean extends AVObject{
         put("addr", addr);
     }
 
-    public ArrayList<String> getImageUrls() {
-        return (ArrayList<String>) getList("imageUrls");
+
+    public void setPublishUser() {
+
+        put("UserInfo",  ClientUserManager.getInstance().obtainCurrentUser());
     }
 
-    public void setImageUrls(ArrayList<String> imageUrls) {
-        put("imageUrls", imageUrls);
+    public AVUser getPublishUser() {
+        return getAVUser("UserInfo",UserInfo.class);
+    }
+
+
+    public List<AVFile> getImageFiles() {
+        return  getList("imageFiles");
+    }
+
+    public void setImageFiles(ArrayList<AVFile> imageFiles) {
+
+       addAll("imageFiles",imageFiles);
     }
 }

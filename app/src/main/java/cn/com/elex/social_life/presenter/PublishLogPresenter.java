@@ -4,7 +4,14 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.TextureView;
 
+import com.avos.avoscloud.AVFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.cloud.ClientUserManager;
 import cn.com.elex.social_life.model.PublishLogModel;
 import cn.com.elex.social_life.model.bean.PublishLogBean;
 import cn.com.elex.social_life.model.imodel.IPublishLogModel;
@@ -68,16 +75,26 @@ public class PublishLogPresenter {
 
 
     public PublishLogBean packData(){
+        AVFile file = null;
+        ArrayList<AVFile> files = new ArrayList<AVFile>();
         PublishLogBean data=new PublishLogBean();
         data.setAddr(view.getLocation().getAddr());
         data.setLat(view.getLocation().getLat());
         data.setLon(view.getLocation().getLon());
         data.setContent(view.getLogContent());
         data.setTitle(view.getLogTitle());
-        data.setImageUrls(view.getSelectPath());
+        for (int i = 0; i < view.getSelectPath().size(); i++) {
+            try {
+                file= AVFile.withFile((System.currentTimeMillis()+i)+"",new File(view.getSelectPath().get(i)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            files.add(file);
+        }
+        data.setImageFiles(files);
+        data.setPublishUser();
         return  data;
     }
-
 
 
 }

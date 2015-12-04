@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.model.bean.UserInfo;
 import cn.com.elex.social_life.ui.activity.PublishLogActivity;
+import cn.com.elex.social_life.ui.activity.ZoneDynamicActivity;
 import cn.com.elex.social_life.ui.base.BaseFragment;
 
 
@@ -53,6 +54,7 @@ public class MineTabFragment extends BaseFragment {
 
     @Override
     protected void preloadDataInit() {
+
         info = (UserInfo) AVUser.getCurrentUser();
     }
 
@@ -88,6 +90,9 @@ public class MineTabFragment extends BaseFragment {
         goToPagerByIntent(PublishLogActivity.class);
     }
 
-
+    @OnClick(R.id.zone)
+    public void zone(){
+        goToPagerByIntent(ZoneDynamicActivity.class);
+    }
 
 }

@@ -33,7 +33,6 @@ public class DemoActivity extends BaseActivity {
     @OnClick({R.id.bt_test})
     public void click() {
 
-
     }
 
 }

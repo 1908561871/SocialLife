@@ -77,7 +77,7 @@ public class GridlayoutImagesAdapter extends BaseAdapter {
         });
         convertView.setLayoutParams(holder.param);
        // adjustItemSize(convertView);
-        Picasso.with(context).load(new File(imagePaths.get(position))).fit().into(holder.ivIcons);
+        Picasso.with(context).load(new File(imagePaths.get(position))).resize(itemHeight,itemHeight).centerCrop().into(holder.ivIcons);
         return convertView;
     }
 

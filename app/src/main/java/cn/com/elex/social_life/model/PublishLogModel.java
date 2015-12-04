@@ -46,22 +46,11 @@ public class PublishLogModel implements  IPublishLogModel {
 
     @Override
     public void commitData(final PublishLogBean data, final CustomSaveCallBack callback) {
-        final ArrayList<AVFile> files=new ArrayList<AVFile>();
-        AVFile file = null;
-        for (int i = 0; i < data.getImageUrls().size(); i++) {
+        if (data.getImageFiles().size()>0){
             try {
-                file=AVFile.withFile((System.currentTimeMillis()+i)+"",new File(data.getImageUrls().get(i)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            files.add(file);
-        }
-        if (files.size()>0){
-            try {
-                AVObject.saveFileBeforeSave(files, false, new CustomSaveCallBack() {
+                AVObject.saveFileBeforeSave(data.getImageFiles(), false, new CustomSaveCallBack() {
                     @Override
                     public void success() {
-                        data.setImageUrls(getImageUrl(files));
                         data.saveInBackground(callback);
                     }
                     @Override
@@ -75,20 +64,10 @@ public class PublishLogModel implements  IPublishLogModel {
         }else{
             data.saveInBackground(callback);
         }
-
     }
 
 
-    public ArrayList<String> getImageUrl(ArrayList<AVFile> files){
 
-        ArrayList<String> paths=new ArrayList<String>();
-
-        for (int i = 0; i < files.size(); i++) {
-            String path=files.get(i).getUrl();
-            paths.add(path);
-        }
-        return  paths;
-    }
 
 
 

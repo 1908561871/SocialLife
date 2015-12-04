@@ -82,6 +82,33 @@
         style="@style/divider_style"></View>
 </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/zone"
+        android:background="@drawable/layout_item_press"
+        style="@style/base_style_mw"
+        android:layout_height="@dimen/layout_height">
+
+        <ImageView
+            android:id="@+id/icon_zone"
+            style="@style/mine_tab_icon_style"
+            android:src="@drawable/icon_account_zone"/>
+        <ImageView
+            android:id="@+id/arrow_icon_zone"
+            style="@style/mine_tab_arrow_style"
+            />
+
+        <TextView
+            android:id="@+id/tv_zone"
+            style="@style/mine_tab_word_style"
+            android:layout_toRightOf="@id/icon_zone"
+            android:text="@string/zone"
+            />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/icon_zone"
+            style="@style/divider_style"></View>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/posting"
@@ -112,6 +139,7 @@
 
     <RelativeLayout
         android:id="@+id/setting"
+        android:layout_marginTop="@dimen/layout_margin"
         android:background="@drawable/layout_item_press"
         style="@style/base_style_mw"
         android:layout_height="@dimen/layout_height">

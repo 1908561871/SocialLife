@@ -6,7 +6,6 @@
 <ImageView
     android:id="@+id/iv_icons"
     style="@style/base_style_mm"
-    android:scaleType="centerInside"
     android:layout_centerInParent="true"
    />
 
