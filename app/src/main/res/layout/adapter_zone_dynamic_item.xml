@@ -54,17 +54,18 @@
         android:layout_marginTop="@dimen/verticl_margin"
         android:id="@+id/log_content"
         style="@style/base_style_mw"
-        android:textSize="@dimen/mid_text_size"
+        android:textSize="@dimen/common_text_size"
         android:maxLines="8"
         />
 
-    <GridView
+    <GridLayout
         android:layout_marginTop="@dimen/verticl_margin"
         android:id="@+id/log_images"
-        android:visibility="gone"
-        style="@style/base_style_mw"></GridView>
+        android:columnCount="3"
+        style="@style/base_style_mw"></GridLayout>
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/verticl_margin"
         style="@style/linear_layout_horizontal_mw">
 
         <TextView
@@ -76,23 +77,29 @@
 
 
         <ImageView
+            android:scaleType="centerInside"
             android:id="@+id/log_praise"
-           style="@style/base_style_ww"
+            style="@style/sml_text_style_ww"
+            android:paddingRight="7dp"
+            android:paddingTop="2dp"
             android:src="@drawable/icon_zan"/>
 
-        <ImageView
-            android:layout_toRightOf="@id/log_praise"
-            android:id="@+id/log_comment"
-            android:layout_marginLeft="50dp"
-            style="@style/base_style_ww"
-            android:src="@drawable/icon_pinglun"/>
 
+        <ImageView
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/log_praise"
+            android:scaleType="centerInside"
+            android:id="@+id/log_comment"
+            style="@style/base_style_ww"
+            android:paddingRight="7dp"
+            android:paddingTop="2dp"
+            android:src="@drawable/icon_pinglun"/>
         <ImageView
             android:id="@+id/log_look"
             android:src="@drawable/icon_eyes"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_toLeftOf="@id/log_comments"
             style="@style/sml_text_style_ww" />
-
     </RelativeLayout>
 </LinearLayout>

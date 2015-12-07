@@ -44,6 +44,7 @@ public class AddFriendActivity extends BaseActivity  implements IAddFriendView{
         setContentView(R.layout.activity_search_friend);
         ButterKnife.bind(this);
         initData();
+
     }
 
     public void initData(){

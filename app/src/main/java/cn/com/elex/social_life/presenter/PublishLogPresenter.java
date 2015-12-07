@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.cloud.ClientUserManager;
 import cn.com.elex.social_life.model.PublishLogModel;
+import cn.com.elex.social_life.model.bean.LocationMsg;
 import cn.com.elex.social_life.model.bean.PublishLogBean;
 import cn.com.elex.social_life.model.imodel.IPublishLogModel;
 import cn.com.elex.social_life.support.callback.CustomSaveCallBack;
+import cn.com.elex.social_life.support.callback.LocationCallBack;
 import cn.com.elex.social_life.support.util.ToastUtils;
 import cn.com.elex.social_life.ui.iview.IPublishLogView;
 
@@ -78,9 +80,7 @@ public class PublishLogPresenter {
         AVFile file = null;
         ArrayList<AVFile> files = new ArrayList<AVFile>();
         PublishLogBean data=new PublishLogBean();
-        data.setAddr(view.getLocation().getAddr());
-        data.setLat(view.getLocation().getLat());
-        data.setLon(view.getLocation().getLon());
+        data.setLocation(view.getLocation());
         data.setContent(view.getLogContent());
         data.setTitle(view.getLogTitle());
         for (int i = 0; i < view.getSelectPath().size(); i++) {
@@ -95,6 +95,26 @@ public class PublishLogPresenter {
         data.setPublishUser();
         return  data;
     }
+
+   public void obtainAddress(){
+
+       model.obtainAddress(new LocationCallBack() {
+           @Override
+           public void locSuccess(LocationMsg msg) {
+               view.setLocation(msg);
+           }
+
+           @Override
+           public void locFailure() {
+
+           }
+       });
+
+
+
+   }
+
+
 
 
 }

@@ -56,6 +56,8 @@ public class LocationManager {
                         locationMsg.setAddr(amapLocation.getAddress());
                         locationMsg.setLat(amapLocation.getLatitude());
                         locationMsg.setLon( amapLocation.getLongitude());
+                        locationMsg.setProvince(amapLocation.getProvince());
+                        locationMsg.setCity(amapLocation.getCity());
                         callBack.locSuccess(locationMsg);
                     }
                 } else {

@@ -22,6 +22,7 @@ public interface IPublishLogView {
     LocationMsg getLocation();
     String getLogTitle();
     Intent getData();
+    void setLocation(LocationMsg location);
     void showDialog();
     void hideDialog();
 

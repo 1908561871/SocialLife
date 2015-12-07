@@ -15,6 +15,7 @@ package cn.com.elex.social_life.support.view.load;
 import android.view.View;
 
 import com.victor.loading.book.BookLoading;
+import com.victor.loading.rotate.RotateLoading;
 
 import cn.com.elex.social_life.R;
 
@@ -62,7 +63,7 @@ public class LoadViewHelper {
 
 	public void showLoading() {
 		View layout = helper.inflate(R.layout.load_ing);
-		BookLoading loading= (BookLoading) layout.findViewById(R.id.bookloading);
+		RotateLoading loading= (RotateLoading) layout.findViewById(R.id.bookloading);
 		loading.start();
 		helper.showLayout(layout);
 	}

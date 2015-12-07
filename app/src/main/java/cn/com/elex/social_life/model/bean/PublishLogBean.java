@@ -2,6 +2,7 @@ package cn.com.elex.social_life.model.bean;
 
 import android.os.Parcel;
 
+import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -24,11 +25,7 @@ public class PublishLogBean extends AVObject{
 
     private String content;
 
-    private double lat;
-
-    private double lon;
-
-    private String addr;
+    private LocationMsg  location;
 
     private String userName;
 
@@ -67,29 +64,16 @@ public class PublishLogBean extends AVObject{
         put("content", content);
     }
 
-    public double getLat() {
-        return  getDouble("lat");
+    public LocationMsg getLocation() {
+        return   JSONObject.parseObject(  getString("location"),LocationMsg.class);
     }
 
-    public void setLat(double lat) {
-        put("lat", lat);
+
+    public void setLocation(LocationMsg location) {
+        put("location", JSONObject.toJSONString(location));
     }
 
-    public double getLon() {
-        return  getDouble("lon");
-    }
 
-    public void setLon(double lon) {
-        put("lon", lon);
-    }
-
-    public String getAddr() {
-        return  getString("addr");
-    }
-
-    public void setAddr(String addr) {
-        put("addr", addr);
-    }
 
 
     public void setPublishUser() {

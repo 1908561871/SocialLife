@@ -13,11 +13,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import cn.com.elex.social_life.R;
+import cn.com.elex.social_life.model.bean.LocationMsg;
 import cn.com.elex.social_life.model.bean.PublishLogBean;
 import cn.com.elex.social_life.model.imodel.IPublishLogModel;
 import cn.com.elex.social_life.support.callback.CustomSaveCallBack;
+import cn.com.elex.social_life.support.callback.LocationCallBack;
+import cn.com.elex.social_life.support.location.LocationManager;
 import cn.com.elex.social_life.support.util.TimeUtils;
 import cn.com.elex.social_life.support.util.ToastUtils;
+import cn.com.elex.social_life.ui.activity.PublishLogActivity;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
@@ -66,11 +71,10 @@ public class PublishLogModel implements  IPublishLogModel {
         }
     }
 
-
-
-
-
-
+    @Override
+    public void obtainAddress(LocationCallBack callBack) {
+        LocationManager.getInstance().obtainCurrentLocation(callBack);
+    }
 
 
 }

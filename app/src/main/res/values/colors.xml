@@ -26,6 +26,8 @@
     <color name="gray">#9b9b9b</color>
     <color name="light_gray">#f8f8f8</color>
     <color name="light_gray2">#f2f2f2</color>
+    <color name="light_gray3">#a9b7b7</color>
+
     <color name="light_gray_window">#f4f5ef</color>
     <color name="light_gray_text">#bfbfbf</color>
 

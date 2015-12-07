@@ -56,6 +56,7 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
         ButterKnife.bind(this);
         presenter = new PublishLogPresenter(this);
         init();
+        presenter.obtainAddress();
         setHeader(true, R.string.publish_log, R.string.publish, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,18 +80,10 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
 
     @OnClick(R.id.location)
     public void locatePositon() {
-        LocationManager.getInstance().obtainCurrentLocation(new LocationCallBack() {
-            @Override
-            public void locSuccess(LocationMsg msg) {
-                PublishLogActivity.this.loacaitonMsg=msg;
-                location.setText(msg.getAddr());
-            }
-            @Override
-            public void locFailure() {
-                location.setText(getResources().getString(R.string.location_failure));
-            }
-        });
+        presenter.obtainAddress();
     }
+
+
 
 
     @Override
@@ -150,6 +143,12 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
     }
 
     @Override
+    public void setLocation(LocationMsg loc) {
+        this.loacaitonMsg=loc;
+        this.location.setText(loc.getAddr());
+    }
+
+    @Override
     public void showDialog() {
         showLoadingDialog();
     }
@@ -158,6 +157,7 @@ public class PublishLogActivity extends BaseActivity implements IPublishLogView 
     public void hideDialog() {
 hideLoadingDialog();
     }
+
 
 
     @Override
