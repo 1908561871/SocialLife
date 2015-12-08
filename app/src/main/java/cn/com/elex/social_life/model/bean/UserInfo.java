@@ -1,6 +1,7 @@
 package cn.com.elex.social_life.model.bean;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 
@@ -58,4 +59,16 @@ public class UserInfo extends AVUser{
     public int getSexType() {
         return this.getInt("sexType");
     }
+
+    public void setGeoPoint(AVGeoPoint point) {
+        this.put("GeoPoint", point);
+    }
+
+
+    public AVGeoPoint getGeoPoint() {
+        return this.getAVGeoPoint("GeoPoint");
+    }
+
+
+
 }

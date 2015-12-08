@@ -49,6 +49,8 @@
         <activity android:name=".ui.activity.CompleteInformationActivity" />
         <activity android:name=".ui.activity.CropActivity" />
         <activity android:name=".ui.activity.ZoneDynamicActivity" />
+        <activity android:name=".ui.activity.ImagePreviewActivity" />
+
         <activity android:name=".ui.activity.PublishLogActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
