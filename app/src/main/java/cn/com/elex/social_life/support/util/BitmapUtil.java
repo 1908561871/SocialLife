@@ -71,7 +71,6 @@ public class BitmapUtil {
 
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
 //      return compressBmpFromBmp(bitmap);//原来的方法调用了这个方法企图进行二次压缩
-        //其实是无效的,大家尽管尝试
         return bitmap;
     }
 

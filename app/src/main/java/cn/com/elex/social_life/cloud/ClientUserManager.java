@@ -42,12 +42,12 @@ public class ClientUserManager {
         return client;
     }
 
-    public  AVUser  obtainCurrentUser(){
+    public  UserInfo  obtainCurrentUser(){
 
         if (user==null){
             user=  AVUser.getCurrentUser();
         }
-        return user;
+        return (UserInfo) user;
     }
 
 

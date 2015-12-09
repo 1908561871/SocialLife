@@ -62,6 +62,8 @@ public class CompleteInformationModel  implements ICompleteInformationModel{
     public void uploadData( final String nicker, final int sexType,Bitmap bimap, final SaveCallback callback) {
         final UserInfo info= (UserInfo) AVUser.getCurrentUser();
         final AVFile file=new AVFile(info.getObjectId(),BitmapUtil.bitmapConverTobyteArray(bimap));
+        file.addMetaData("width", bimap.getWidth());
+        file.addMetaData("height", bimap.getHeight());
         //图片上传
         file.saveInBackground(new CustomSaveCallBack() {
             @Override

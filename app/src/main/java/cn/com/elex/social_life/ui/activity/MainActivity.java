@@ -10,6 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.elex.social_life.R;
 import cn.com.elex.social_life.cloud.ClientUserManager;
+import cn.com.elex.social_life.support.location.LocationManager;
 import cn.com.elex.social_life.ui.base.BaseActivity;
 
 /**
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
             }
         }, 3000);
 
+
     }
 
 
@@ -45,6 +47,11 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
+
+    public void initLoad(){
+        LocationManager.getInstance().obtainCurrentLocation(null);
+    }
+
 
 
     public void goToMainActivity(){

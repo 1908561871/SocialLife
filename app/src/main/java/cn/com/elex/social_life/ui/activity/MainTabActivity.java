@@ -88,17 +88,14 @@ public class MainTabActivity extends BaseActivity implements IMainTabView,TabHos
 
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            presenter.exit();
             exit();
             return false;
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
     public void exit() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
@@ -106,6 +103,7 @@ public class MainTabActivity extends BaseActivity implements IMainTabView,TabHos
             exitTime = System.currentTimeMillis();
         } else {
             closeAllActivities();
+            presenter.exit();
             System.exit(0);
         }
     }

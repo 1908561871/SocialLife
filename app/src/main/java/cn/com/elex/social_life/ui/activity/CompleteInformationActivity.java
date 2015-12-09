@@ -110,16 +110,21 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
 
             if (requestCode==CompleteInformationModel.PICKER_PHOTO && data.getData()!=null)
             {
-                    path=getRealPathFromURI(data.getData());
-                    presenter.cropPhoto();
+                path=getRealPathFromURI(data.getData());
+                   /* path=getRealPathFromURI(data.getData());
+                    presenter.cropPhoto();*/
             }else if (requestCode==CompleteInformationModel.TAKE_PHOTO){
-                    path=MemoryControl.getTempImageFile().getPath();
-                    presenter.cropPhoto();
+                path=MemoryControl.getTempImageFile().getPath();
+                  /*  path=MemoryControl.getTempImageFile().getPath();
+                    presenter.cropPhoto();*/
 
-            }else if (requestCode==CompleteInformationModel.CROP_PHOTO){
+            }/*else if (requestCode==CompleteInformationModel.CROP_PHOTO){
                     userBitmap=GlobalApplication.getInstance().tempBitmap;
                     userIcon.setImageBitmap(userBitmap);
-            }
+            }*/
+        //   GlobalApplication.getInstance().tempBitmap=BitmapUtil.compressImageFromFile(path);
+            userBitmap=BitmapUtil.compressImageFromFile(path);
+            userIcon.setImageBitmap(userBitmap);
         }
     }
 
@@ -172,7 +177,6 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
     }
 
 
-
     public String getRealPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = { MediaStore.Images.Media.DATA };
@@ -184,7 +188,6 @@ public class CompleteInformationActivity extends BaseActivity implements RadioGr
         cursor.close();
         return res;
     }
-
 
 
 }

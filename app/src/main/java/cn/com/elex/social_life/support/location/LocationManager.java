@@ -7,6 +7,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.avos.avoscloud.AVGeoPoint;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +33,10 @@ public class LocationManager {
     public AMapLocationClient mLocationClient = null;
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
-    //声明定位回调监听器
+
+    public boolean hasLocation;
+
+     //声明定位回调监听器
     public AMapLocationListener mLocationListener = new AMapLocationListener() {
         @Override
         public void onLocationChanged(AMapLocation amapLocation) {
@@ -52,12 +56,13 @@ public class LocationManager {
                     amapLocation.getCityCode();//城市编码
                     amapLocation.getAdCode();//地区编码
                     mLocationClient.stopLocation();
+                    hasLocation=true;
+                    locationMsg.setAddr(amapLocation.getAddress());
+                    locationMsg.setLat(amapLocation.getLatitude());
+                    locationMsg.setLon( amapLocation.getLongitude());
+                    locationMsg.setProvince(amapLocation.getProvince());
+                    locationMsg.setCity(amapLocation.getCity());
                     if (callBack!=null){
-                        locationMsg.setAddr(amapLocation.getAddress());
-                        locationMsg.setLat(amapLocation.getLatitude());
-                        locationMsg.setLon( amapLocation.getLongitude());
-                        locationMsg.setProvince(amapLocation.getProvince());
-                        locationMsg.setCity(amapLocation.getCity());
                         callBack.locSuccess(locationMsg);
                     }
                 } else {
@@ -123,6 +128,22 @@ public class LocationManager {
 
 
 
+    public  boolean hasLocation(){
 
+        return  hasLocation;
+    }
+
+
+
+    public LocationMsg getCurrentLocation(){
+
+        return  locationMsg;
+
+    }
+
+
+    public AVGeoPoint getGeoPoint(){
+        return new AVGeoPoint(locationMsg.getLat(),locationMsg.getLon());
+    }
 
 }

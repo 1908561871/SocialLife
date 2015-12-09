@@ -24,6 +24,7 @@ public class MainTabPresenter {
 
     public void initLoad(){
 
+        mainTabModel.updateLocation();
         mainTabModel.loginIM(new IMLoginCallBack() {
             @Override
             public void onsuccess() {
@@ -37,18 +38,15 @@ public class MainTabPresenter {
             }
         });
 
-
     }
 
 
     public void exit(){
 
-
         mainTabModel.exit(new IMLoginCallBack() {
             @Override
             public void onsuccess() {
                 ToastUtils.show(R.string.im_quit_success);
-
             }
 
             @Override
@@ -58,7 +56,6 @@ public class MainTabPresenter {
         });
 
     }
-
 
 
 
