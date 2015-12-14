@@ -18,7 +18,7 @@ public class FindNearPeopleModel implements IFindNearPeopleModel{
 
         AVQuery<AVObject> query = new AVQuery<AVObject>("_User");
         query.whereNear("GeoPoint", point);
-        query.setLimit(2);            //获取最接近用户地点的10条微博
+        query.setLimit(20);            //获取最接近用户地点的10条微博
         query.skip(skip);
         query.findInBackground(callBack);
 

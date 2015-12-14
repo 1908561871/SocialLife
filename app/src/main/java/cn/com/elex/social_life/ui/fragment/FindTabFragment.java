@@ -66,7 +66,13 @@ public class FindTabFragment extends BaseFragment implements IFindNearPeopleView
         refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                pager=1;
+                pager=0;
+                openLoadMore();
+                presenter.getData();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
                 presenter.getData();
             }
         });
@@ -117,6 +123,11 @@ public class FindTabFragment extends BaseFragment implements IFindNearPeopleView
     @Override
     public void openLoadMore() {
         refreshLayout.setLoadMore(true);
+    }
+
+    @Override
+    public void clearData() {
+        userInfos.clear();
     }
 
 }

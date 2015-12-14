@@ -19,6 +19,8 @@ public class FindNearPeoplePresenter {
 
     private IFindNearPeopleView view;
 
+    private int pageSize=20;
+
     public FindNearPeoplePresenter(IFindNearPeopleView view) {
         this.view = view;
         model=new FindNearPeopleModel();
@@ -31,10 +33,15 @@ public class FindNearPeoplePresenter {
         model.obtainNearPeopleData(LocationManager.getInstance().getGeoPoint(),new CustomFindCallBack(new DataQueryCallBack() {
             @Override
             public void success(List list) {
-                if (list.size()<2){
+                if (list.size()<pageSize){
                     view.closeLoadMore();
                 }
+                if (view.getPagerNum()==0)
+                {
+                    view.clearData();
+                }
                 view.updateData(list);
+                view.setPagerNum(view.getPagerNum()+1);
             }
 
             @Override
@@ -42,7 +49,7 @@ public class FindNearPeoplePresenter {
                 view.closeLoadMore();
                 ToastUtils.show(msg);
             }
-        }),view.getPagerNum()*2);
+        }),view.getPagerNum()*pageSize);
 
     }
 

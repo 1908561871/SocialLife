@@ -23,4 +23,6 @@ public interface IFindNearPeopleView {
 
     public void openLoadMore();
 
+    public void clearData();
+
 }
